@@ -1,5 +1,6 @@
 
 import { CheckCircle } from "lucide-react";
+import { motion } from "framer-motion";
 
 const monitoringPoints = [
   {
@@ -60,27 +61,60 @@ const monitoringPoints = [
 ];
 
 const FeaturesSection = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.05 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
+    }
+  };
+
   return (
     <section id="features" className="py-16 md:py-24 bg-white">
       <div className="container">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <motion.div 
+          className="text-center max-w-3xl mx-auto mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Comprehensive Monitoring Points
           </h2>
           <p className="text-xl text-gray-600">
             Our platform tracks every important signal about a company, providing you with real-time insights across multiple channels.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {monitoringPoints.map((point, index) => (
-            <div key={index} className="feature-card">
+            <motion.div 
+              key={index} 
+              className="feature-card"
+              variants={itemVariants}
+            >
               <div className="mb-4 text-2xl">{point.icon}</div>
               <h3 className="text-xl font-semibold mb-2">{point.title}</h3>
               <p className="text-gray-600">{point.description}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
