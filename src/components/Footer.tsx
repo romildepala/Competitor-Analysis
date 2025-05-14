@@ -5,7 +5,7 @@ const Footer = () => {
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div>
-            <div className="text-2xl font-bold text-brand-blue mb-4">CompanyRadar</div>
+            <div className="text-2xl font-bold text-brand-blue mb-4">Spyer.app</div>
             <p className="text-gray-600 mb-4">
               The comprehensive company monitoring platform for smarter business intelligence.
             </p>
@@ -44,7 +44,7 @@ const Footer = () => {
         
         <div className="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="text-gray-500 mb-4 md:mb-0">
-            &copy; {new Date().getFullYear()} CompanyRadar. All rights reserved.
+            &copy; {new Date().getFullYear()} Spyer.app. All rights reserved.
           </div>
           <div className="flex space-x-4">
             <a href="#" className="text-gray-500 hover:text-brand-blue">
