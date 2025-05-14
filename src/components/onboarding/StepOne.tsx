@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Input } from '@/components/ui/input.tsx';
 import { Label } from '@/components/ui/label.tsx';
@@ -52,7 +53,7 @@ const StepOne: React.FC = () => {
           className="text-2xl font-semibold text-gray-900 mb-2"
           variants={itemVariants}
         >
-          Welcome to CompIntel Pro
+          Welcome to Spyer.app
         </motion.h1>
         <motion.p 
           className="text-gray-500 max-w-sm mx-auto text-sm"
