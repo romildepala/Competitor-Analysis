@@ -15,7 +15,7 @@ const CTASection = () => {
               Start Monitoring Companies Today
             </h2>
             <p className="text-xl mb-8 text-blue-100">
-              Join thousands of business leaders who use CompanyRadar to stay ahead of market changes, track competitors, and make data-driven decisions.
+              Join thousands of business leaders who use Spyer.ai to stay ahead of market changes, track competitors, and make data-driven decisions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-white text-brand-blue hover:bg-gray-100 text-lg px-6">

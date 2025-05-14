@@ -23,7 +23,7 @@ const Header = () => {
     }`}>
       <div className="container flex justify-between items-center">
         <div className="flex items-center">
-          <div className="text-2xl font-bold text-brand-blue">CompanyRadar</div>
+          <div className="text-2xl font-bold text-brand-blue">Spyer.ai</div>
         </div>
         <nav className="hidden md:flex space-x-8">
           <a href="#features" className="font-medium hover:text-brand-blue transition-colors">Features</a>
