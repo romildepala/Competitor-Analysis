@@ -16,7 +16,7 @@ const HeroSection = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center md:justify-start">
               <Button size="lg" className="bg-brand-blue hover:bg-brand-darkBlue text-lg px-6">
-                Start Monitoring
+                Get Reports Now
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button size="lg" variant="outline" className="text-lg">
