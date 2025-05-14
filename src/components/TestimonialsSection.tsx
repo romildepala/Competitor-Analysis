@@ -3,22 +3,22 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const testimonials = [
   {
-    quote: "Spyer.ai has transformed how we monitor our competitors. We've discovered strategic shifts weeks before they became public knowledge.",
-    author: "Shuo Wang",
+    quote: "Spyer.ai didn't just transform our competitor monitoring—it basically turned us into omniscient overlords. We now casually spot strategic pivots weeks before anyone else even files their press release.",
+    author: "Alex Bouaziz",
     position: "Co-founder, Deel",
-    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-1.2.1&auto=format&fit=crop"
+    image: "/lovable-uploads/46294b2d-d139-4884-9056-66c07c9c0a4d.png"
   },
   {
-    quote: "As a biotech innovator, I use Spyer.ai to keep tabs on industry movements. The employee change tracking alone has been worth the investment.",
+    quote: "As a biotech visionary, I use Spyer.ai to stalk industry gossip so obsessively that our 'employee change' alerts feel more like inside jokes. Totally worth every penny—because who needs lab breakthroughs when you can track org charts?",
     author: "Elizabeth Holmes",
     position: "Founder, Theranos",
-    image: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?ixlib=rb-1.2.1&auto=format&fit=crop"
+    image: "/lovable-uploads/aff64051-2314-4b9b-a8c3-0042d1cb9b19.png"
   },
   {
-    quote: "The insights we've gained through Spyer.ai have directly influenced our strategic decisions. We've saved months of development by identifying market gaps early.",
-    author: "Sam Bankman-Fried",
+    quote: "Thanks to Spyer.ai's crystal-ball insights, we've 'saved' entire months of development—if by 'saved' you mean outsourced our market research to an algorithm that already knew what we wanted. Productivity so future-proof it hurts.",
+    author: "S. Bankman-Fried",
     position: "Founder, FTX",
-    image: "https://images.unsplash.com/photo-1501286353178-1ec871814838?ixlib=rb-1.2.1&auto=format&fit=crop"
+    image: "/lovable-uploads/3e91268a-687c-43b8-b9d5-03345bede23f.png"
   }
 ];
 
