@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button.tsx';
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -11,6 +12,31 @@ const StepFour: React.FC = () => {
   const handleBack = () => {
     setCurrentStep(3);
   };
+
+  // Determine recommended plan based on user responses
+  const determineRecommendedPlan = () => {
+    const { competitors, monitoringPoints, customSubjects } = onboardingData;
+    
+    // Count valid competitors (non-empty names)
+    const validCompetitors = competitors.filter(c => c.name.trim() !== '').length;
+    
+    // Count selected monitoring points
+    const selectedPoints = monitoringPoints.filter(p => p.selected).length;
+    
+    // Count valid custom subjects
+    const validCustomSubjects = customSubjects.filter(s => s.content.trim() !== '').length;
+    
+    // Professional plan if user has more competitors or many monitoring points
+    if (validCompetitors > 1 || (selectedPoints + validCustomSubjects > 5)) {
+      return 'professional';
+    }
+    
+    // Default to starter plan
+    return 'starter';
+  };
+
+  const recommendedPlan = determineRecommendedPlan();
+  const isProfessional = recommendedPlan === 'professional';
 
   // Generate a random customer ID
   const generateRandomCustomerId = () => {
@@ -27,6 +53,7 @@ const StepFour: React.FC = () => {
       const apiKey = "am_pk_test_2x3ldHrgmNweqkG68YcMXcBggZb";
       const customerId = generateRandomCustomerId();
 
+      // For now, always use "standard" product_id regardless of the plan
       const apiResponse = await fetch('https://api.useautumn.com/v1/attach', {
         method: 'POST',
         headers: {
@@ -40,6 +67,7 @@ const StepFour: React.FC = () => {
           metadata: {
             customerName: onboardingData.companyName,
             customerEmail: onboardingData.email,
+            recommendedPlan: recommendedPlan
           }
         }),
       });
@@ -119,6 +147,8 @@ const StepFour: React.FC = () => {
     }
   };
 
+  const validCompetitors = onboardingData.competitors.filter(c => c.name.trim() !== '').length;
+
   return (
     <div className="max-w-md mx-auto p-8">
       <motion.div 
@@ -137,7 +167,7 @@ const StepFour: React.FC = () => {
           className="text-gray-500 max-w-sm mx-auto text-sm"
           variants={itemVariants}
         >
-          Confirm your subscription details before proceeding to payment.
+          We've selected the best plan for your needs based on your answers.
         </motion.p>
       </motion.div>
 
@@ -151,16 +181,30 @@ const StepFour: React.FC = () => {
           variants={itemVariants}
           className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden"
         >
-          <div className="px-5 py-3 border-b border-gray-100 bg-gray-50/80">
-            <h2 className="text-sm font-medium text-gray-800">Your CompIntel Pro Package</h2>
+          <div className="px-5 py-3 border-b border-gray-100 bg-gray-50/80 flex justify-between items-center">
+            <h2 className="text-sm font-medium text-gray-800">Recommended Plan:</h2>
+            {isProfessional && (
+              <div className="bg-brand-lightBlue text-brand-blue text-xs font-medium px-2 py-0.5 rounded-full">
+                Most Popular
+              </div>
+            )}
           </div>
           
           <div className="p-5 space-y-4">
             <div>
               <div className="flex justify-between items-center">
-                <h3 className="text-sm font-medium text-gray-800">Founder's Intelligence Package</h3>
-                <span className="text-sm font-medium text-gray-900">$99/month</span>
+                <h3 className="text-lg font-semibold text-gray-800">
+                  {isProfessional ? "Professional Plan" : "Starter Plan"}
+                </h3>
+                <span className="text-lg font-semibold text-gray-900">
+                  {isProfessional ? "$99" : "$39"}<span className="text-sm font-normal text-gray-600">/month</span>
+                </span>
               </div>
+              <p className="text-sm text-gray-600 mt-1">
+                {isProfessional 
+                  ? "Ideal for monitoring multiple competitors in detail" 
+                  : "Monitor a single company in detail"}
+              </p>
             </div>
             
             <div>
@@ -169,32 +213,50 @@ const StepFour: React.FC = () => {
                 <motion.li variants={itemVariants} className="flex items-start">
                   <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
                   <span className="text-sm text-gray-700">
-                    Monitoring of {onboardingData.competitors.filter(c => c.name.trim() !== '').length} competitors
+                    {isProfessional 
+                      ? "Monitoring of up to 10 competitors" 
+                      : "Monitoring of 1 competitor"}
                   </span>
                 </motion.li>
                 <motion.li variants={itemVariants} className="flex items-start">
                   <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
                   <span className="text-sm text-gray-700">
-                    {selectedPointsCount > 0 && customSubjectsCount > 0 ? (
-                      <>Tracking of {selectedPointsCount} standard monitoring points and {customSubjectsCount} custom data points</>
-                    ) : selectedPointsCount > 0 ? (
-                      <>Tracking of {selectedPointsCount} standard monitoring points</>
-                    ) : customSubjectsCount > 0 ? (
-                      <>Tracking of {customSubjectsCount} custom data points</>
-                    ) : (
-                      <>No monitoring points selected</>
-                    )}
+                    {isProfessional 
+                      ? "All monitoring points" 
+                      : "7 monitoring points"}
                   </span>
                 </motion.li>
                 <motion.li variants={itemVariants} className="flex items-start">
                   <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Weekly comprehensive intelligence report</span>
+                  <span className="text-sm text-gray-700">
+                    {isProfessional 
+                      ? "Daily email reports" 
+                      : "Weekly email reports"}
+                  </span>
                 </motion.li>
-                {onboardingData.interestedInPremium && (
-                  <motion.li variants={itemVariants} className="flex items-start">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">Consultation about our premium Insider Insights service</span>
-                  </motion.li>
+                <motion.li variants={itemVariants} className="flex items-start">
+                  <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-gray-700">
+                    {isProfessional 
+                      ? "Advanced dashboard" 
+                      : "Basic dashboard"}
+                  </span>
+                </motion.li>
+                {isProfessional && (
+                  <>
+                    <motion.li variants={itemVariants} className="flex items-start">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">Custom alerts</span>
+                    </motion.li>
+                    <motion.li variants={itemVariants} className="flex items-start">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">API access</span>
+                    </motion.li>
+                    <motion.li variants={itemVariants} className="flex items-start">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">Quarterly insights report</span>
+                    </motion.li>
+                  </>
                 )}
               </ul>
             </div>
@@ -216,7 +278,9 @@ const StepFour: React.FC = () => {
               className="mt-4 pt-3 border-t border-gray-100 flex justify-between items-center"
             >
               <span className="font-medium text-gray-800">Total</span>
-              <span className="text-xl font-semibold text-gray-900">$99/month</span>
+              <span className="text-xl font-semibold text-gray-900">
+                {isProfessional ? "$99" : "$39"}<span className="text-sm font-normal text-gray-600">/month</span>
+              </span>
             </motion.div>
           </div>
         </motion.div>
@@ -229,7 +293,7 @@ const StepFour: React.FC = () => {
             Payment is processed securely via Stripe. Your subscription can be managed or canceled anytime by contacting support.
           </p>
           <p className="mt-1.5">
-            Your first full weekly report will be delivered on {getNextMonday()}.
+            Your first full report will be delivered on {getNextMonday()}.
           </p>
         </motion.div>
       </motion.div>
@@ -255,7 +319,7 @@ const StepFour: React.FC = () => {
           <Button
             onClick={handlePayment}
             disabled={isProcessing}
-            className="group px-4 py-2.5 bg-black hover:bg-gray-800 text-white rounded-full text-sm shadow-sm transition-all duration-200"
+            className="group px-4 py-2.5 bg-brand-blue hover:bg-brand-darkBlue text-white rounded-full text-sm shadow-sm transition-all duration-200"
           >
             {isProcessing ? (
               <span className="flex items-center">
@@ -268,7 +332,7 @@ const StepFour: React.FC = () => {
             ) : (
               <>
                 <CreditCard className="mr-2 h-4 w-4" />
-                <span>Subscribe - $99/month</span>
+                <span>Subscribe - {isProfessional ? "$99/month" : "$39/month"}</span>
               </>
             )}
           </Button>
