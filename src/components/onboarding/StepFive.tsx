@@ -72,9 +72,9 @@ const StepFive: React.FC = () => {
       >
         <motion.div 
           variants={circleVariants}
-          className="mx-auto mb-6 w-16 h-16 rounded-full bg-green-50 flex items-center justify-center"
+          className="mx-auto mb-6 w-16 h-16 rounded-full bg-brand-lightBlue flex items-center justify-center"
         >
-          <CheckCircle className="h-8 w-8 text-green-500" />
+          <CheckCircle className="h-8 w-8 text-brand-blue" />
         </motion.div>
         
         <motion.h1 
@@ -106,7 +106,7 @@ const StepFive: React.FC = () => {
           
           <div className="space-y-3">
             <div className="flex">
-              <div className="mr-3 flex-shrink-0 flex h-5 w-5 items-center justify-center rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
+              <div className="mr-3 flex-shrink-0 flex h-5 w-5 items-center justify-center rounded-full bg-brand-lightBlue text-brand-blue text-xs font-medium">
                 1
               </div>
               <p className="text-xs text-gray-700">
@@ -115,17 +115,17 @@ const StepFive: React.FC = () => {
             </div>
             
             <div className="flex">
-              <div className="mr-3 flex-shrink-0 flex h-5 w-5 items-center justify-center rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
+              <div className="mr-3 flex-shrink-0 flex h-5 w-5 items-center justify-center rounded-full bg-brand-lightBlue text-brand-blue text-xs font-medium">
                 2
               </div>
               <p className="text-xs text-gray-700">
-                <span className="font-medium">Weekly Reports:</span> Your comprehensive weekly intelligence reports will begin on <span className="font-medium bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">{getNextReportDate()}</span>.
+                <span className="font-medium">Weekly Reports:</span> Your comprehensive weekly intelligence reports will begin on <span className="font-medium text-brand-blue">{getNextReportDate()}</span>.
               </p>
             </div>
             
             {onboardingData.interestedInPremium && (
               <div className="flex">
-                <div className="mr-3 flex-shrink-0 flex h-5 w-5 items-center justify-center rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
+                <div className="mr-3 flex-shrink-0 flex h-5 w-5 items-center justify-center rounded-full bg-brand-lightBlue text-brand-blue text-xs font-medium">
                   3
                 </div>
                 <p className="text-xs text-gray-700">

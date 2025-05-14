@@ -45,9 +45,9 @@ const ProgressIndicator: React.FC = () => {
                   animate={circleState}
                   className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
                     isActive
-                      ? 'bg-black text-white'
+                      ? 'bg-brand-blue text-white'
                       : isComplete
-                      ? 'bg-black text-white'
+                      ? 'bg-brand-blue text-white'
                       : 'bg-white text-gray-400 border border-gray-200'
                   } transition-colors duration-200`}
                 >
@@ -66,7 +66,7 @@ const ProgressIndicator: React.FC = () => {
               {index < steps.length - 1 && (
                 <div className="flex-1 h-px bg-gray-200 relative z-0 mx-1">
                   <motion.div
-                    className="absolute inset-0 bg-black origin-left"
+                    className="absolute inset-0 bg-brand-blue origin-left"
                     initial={{ scaleX: 0 }}
                     animate={{ 
                       scaleX: isComplete ? 1 : 0,

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Input } from '@/components/ui/input.tsx';
 import { Label } from '@/components/ui/label.tsx';
@@ -89,7 +90,7 @@ const StepTwo: React.FC = () => {
           >
             <div className="flex-grow space-y-2">
               <Label htmlFor={`competitor-${competitor.id}`} className="text-sm font-medium text-gray-700">
-                Competitor {index + 1} {index === 0 && <span className="text-black">*</span>}
+                Competitor {index + 1} {index === 0 && <span className="text-brand-blue">*</span>}
               </Label>
               <Input
                 id={`competitor-${competitor.id}`}
@@ -97,7 +98,7 @@ const StepTwo: React.FC = () => {
                 value={competitor.name}
                 onChange={(e) => updateCompetitor(competitor.id, e.target.value)}
                 placeholder={`E.g. CompetitorX.com`}
-                className="w-full p-2 rounded-lg border-gray-200 bg-gray-50 hover:border-gray-300 focus-visible:ring-1 focus-visible:ring-black focus-visible:border-black transition-colors text-sm"
+                className="w-full p-2 rounded-lg border-gray-200 bg-gray-50 hover:border-gray-300 focus-visible:ring-1 focus-visible:ring-brand-blue focus-visible:border-brand-blue transition-colors text-sm"
                 required={index === 0}
               />
             </div>
@@ -164,7 +165,7 @@ const StepTwo: React.FC = () => {
             className={`group px-5 py-2 text-sm rounded-full shadow-sm transition-all duration-200 ${
               !isStepValid() 
                 ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                : 'bg-black hover:bg-gray-800 text-white'
+                : 'bg-brand-blue hover:bg-brand-darkBlue text-white'
             }`}
             disabled={!isStepValid()}
           >
