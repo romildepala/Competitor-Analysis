@@ -54,6 +54,9 @@ const StepTwo: React.FC = () => {
     }
   };
 
+  // Maximum number of competitors allowed
+  const MAX_COMPETITORS = 20;
+
   return (
     <div className="max-w-md mx-auto p-8">
       <motion.div 
@@ -63,7 +66,7 @@ const StepTwo: React.FC = () => {
         variants={containerVariants}
       >
         <motion.h1 
-          className="text-2xl font-semibold text-gray-900 mb-2"
+          className="text-2xl font-semibold text-brand-blue mb-2"
           variants={itemVariants}
         >
           Who are your competitors?
@@ -72,7 +75,7 @@ const StepTwo: React.FC = () => {
           className="text-gray-500 max-w-sm mx-auto text-sm"
           variants={itemVariants}
         >
-          Specify up to 3 key competitors you want to monitor for the most relevant insights.
+          Specify up to {MAX_COMPETITORS} key competitors you want to monitor for the most relevant insights.
         </motion.p>
       </motion.div>
 
@@ -102,7 +105,7 @@ const StepTwo: React.FC = () => {
                 required={index === 0}
               />
             </div>
-            {index === onboardingData.competitors.length - 1 && onboardingData.competitors.length < 3 ? (
+            {index === onboardingData.competitors.length - 1 && onboardingData.competitors.length < MAX_COMPETITORS ? (
               <Button
                 type="button"
                 onClick={addCompetitor}
@@ -129,19 +132,21 @@ const StepTwo: React.FC = () => {
         ))}
       </motion.div>
 
-      <motion.div 
-        className="mt-4"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <motion.p 
-          className="text-xs text-gray-500"
-          variants={itemVariants}
+      {onboardingData.competitors.length > 0 && (
+        <motion.div 
+          className="mt-4"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
         >
-          Choose the competitors most critical to your strategy. You can request changes later if needed.
-        </motion.p>
-      </motion.div>
+          <motion.p 
+            className="text-xs text-gray-500"
+            variants={itemVariants}
+          >
+            Choose the competitors most critical to your strategy. You can request changes later if needed.
+          </motion.p>
+        </motion.div>
+      )}
 
       <motion.div 
         className="mt-10 flex justify-between"

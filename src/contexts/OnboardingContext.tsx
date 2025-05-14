@@ -27,7 +27,7 @@ export const OnboardingProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
   // Add a new competitor
   const addCompetitor = () => {
-    if (onboardingData.competitors.length < 3) {
+    if (onboardingData.competitors.length < 20) {
       const newId = (onboardingData.competitors.length + 1).toString();
       setOnboardingData(prevData => ({
         ...prevData,
