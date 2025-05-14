@@ -53,7 +53,9 @@ const StepFour: React.FC = () => {
       const apiKey = "am_pk_test_2x3ldHrgmNweqkG68YcMXcBggZb";
       const customerId = generateRandomCustomerId();
 
-      // For now, always use "standard" product_id regardless of the plan
+      // Use the correct product_id based on the recommended plan
+      const productId = isProfessional ? "professional" : "starter";
+
       const apiResponse = await fetch('https://api.useautumn.com/v1/attach', {
         method: 'POST',
         headers: {
@@ -61,7 +63,7 @@ const StepFour: React.FC = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          product_id: "standard",
+          product_id: productId,
           customer_id: customerId,
           force_checkout: true,
           metadata: {
