@@ -1,5 +1,6 @@
 
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const testimonials = [
   {
@@ -41,9 +42,11 @@ const TestimonialsSection = () => {
               <div className="text-2xl font-serif text-gray-400 mb-4">"</div>
               <p className="text-lg mb-8">{testimonial.quote}</p>
               <div className="flex items-center">
-                <Avatar className="h-12 w-12 mr-4">
-                  <AvatarImage src={testimonial.image} alt={testimonial.author} />
-                  <AvatarFallback>{testimonial.author.charAt(0)}</AvatarFallback>
+                <Avatar className="h-12 w-12 mr-4 overflow-hidden">
+                  <AspectRatio ratio={1 / 1} className="h-full w-full">
+                    <AvatarImage src={testimonial.image} alt={testimonial.author} className="object-cover" />
+                    <AvatarFallback>{testimonial.author.charAt(0)}</AvatarFallback>
+                  </AspectRatio>
                 </Avatar>
                 <div>
                   <div className="font-semibold">{testimonial.author}</div>
