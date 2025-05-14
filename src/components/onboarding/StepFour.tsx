@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button.tsx';
 import { useOnboarding } from '@/contexts/OnboardingContext';
-import { CheckCircle, ArrowLeft, CreditCard } from 'lucide-react';
+import { CheckCircle, ArrowLeft, CreditCard, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const StepFour: React.FC = () => {
@@ -25,6 +25,11 @@ const StepFour: React.FC = () => {
     
     // Count valid custom subjects
     const validCustomSubjects = customSubjects.filter(s => s.content.trim() !== '').length;
+
+    // Enterprise plan if user has more than 10 competitors
+    if (validCompetitors > 10) {
+      return 'enterprise';
+    }
     
     // Professional plan if user has more competitors or many monitoring points
     if (validCompetitors > 1 || (selectedPoints + validCustomSubjects > 5)) {
@@ -37,6 +42,7 @@ const StepFour: React.FC = () => {
 
   const recommendedPlan = determineRecommendedPlan();
   const isProfessional = recommendedPlan === 'professional';
+  const isEnterprise = recommendedPlan === 'enterprise';
 
   // Generate a random customer ID
   const generateRandomCustomerId = () => {
@@ -49,6 +55,18 @@ const StepFour: React.FC = () => {
   const handlePayment = async () => {
     try {
       setIsProcessing(true);
+      
+      // If enterprise plan, redirect to a contact form instead of payment
+      if (isEnterprise) {
+        // Create a record for step 4 (enterprise interest) asynchronously without blocking transition
+        createStepRecord(4).catch(error => {
+          console.error('Error creating step record:', error);
+        });
+        
+        // Redirect to enterprise contact page
+        window.location.href = "/onboarding/complete?plan=enterprise";
+        return;
+      }
       
       const apiKey = "am_pk_test_2x3ldHrgmNweqkG68YcMXcBggZb";
       const customerId = generateRandomCustomerId();
@@ -185,9 +203,14 @@ const StepFour: React.FC = () => {
         >
           <div className="px-5 py-3 border-b border-gray-100 bg-gray-50/80 flex justify-between items-center">
             <h2 className="text-sm font-medium text-gray-800">Recommended Plan:</h2>
-            {isProfessional && (
+            {isProfessional && !isEnterprise && (
               <div className="bg-brand-lightBlue text-brand-blue text-xs font-medium px-2 py-0.5 rounded-full">
                 Most Popular
+              </div>
+            )}
+            {isEnterprise && (
+              <div className="bg-indigo-100 text-indigo-700 text-xs font-medium px-2 py-0.5 rounded-full">
+                Custom Solution
               </div>
             )}
           </div>
@@ -196,56 +219,78 @@ const StepFour: React.FC = () => {
             <div>
               <div className="flex justify-between items-center">
                 <h3 className="text-lg font-semibold text-gray-800">
-                  {isProfessional ? "Professional Plan" : "Starter Plan"}
+                  {isEnterprise ? "Enterprise Plan" : isProfessional ? "Professional Plan" : "Starter Plan"}
                 </h3>
                 <span className="text-lg font-semibold text-gray-900">
-                  {isProfessional ? "$99" : "$39"}<span className="text-sm font-normal text-gray-600">/month</span>
+                  {isEnterprise ? "Custom" : isProfessional ? "$99" : "$39"}
+                  {!isEnterprise && <span className="text-sm font-normal text-gray-600">/month</span>}
                 </span>
               </div>
               <p className="text-sm text-gray-600 mt-1">
-                {isProfessional 
-                  ? "Ideal for monitoring multiple competitors in detail" 
-                  : "Monitor a single company in detail"}
+                {isEnterprise 
+                  ? "For organizations with advanced needs" 
+                  : isProfessional 
+                    ? "Ideal for monitoring multiple competitors in detail" 
+                    : "Monitor a single company in detail"}
               </p>
             </div>
             
             <div>
               <h4 className="text-xs uppercase tracking-wider text-gray-500 mb-3">Includes:</h4>
               <ul className="space-y-3">
-                <motion.li variants={itemVariants} className="flex items-start">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">
-                    {isProfessional 
-                      ? "Monitoring of up to 10 competitors" 
-                      : "Monitoring of 1 competitor"}
-                  </span>
-                </motion.li>
-                <motion.li variants={itemVariants} className="flex items-start">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">
-                    {isProfessional 
-                      ? "All monitoring points" 
-                      : "7 monitoring points"}
-                  </span>
-                </motion.li>
-                <motion.li variants={itemVariants} className="flex items-start">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">
-                    {isProfessional 
-                      ? "Daily email reports" 
-                      : "Weekly email reports"}
-                  </span>
-                </motion.li>
-                <motion.li variants={itemVariants} className="flex items-start">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">
-                    {isProfessional 
-                      ? "Advanced dashboard" 
-                      : "Basic dashboard"}
-                  </span>
-                </motion.li>
-                {isProfessional && (
+                {/* Enterprise Plan Features */}
+                {isEnterprise && (
                   <>
+                    <motion.li variants={itemVariants} className="flex items-start">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">Unlimited competitors</span>
+                    </motion.li>
+                    <motion.li variants={itemVariants} className="flex items-start">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">All monitoring points</span>
+                    </motion.li>
+                    <motion.li variants={itemVariants} className="flex items-start">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">Custom reporting frequency</span>
+                    </motion.li>
+                    <motion.li variants={itemVariants} className="flex items-start">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">Team access</span>
+                    </motion.li>
+                    <motion.li variants={itemVariants} className="flex items-start">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">Dedicated account manager</span>
+                    </motion.li>
+                    <motion.li variants={itemVariants} className="flex items-start">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">Custom integrations</span>
+                    </motion.li>
+                    <motion.li variants={itemVariants} className="flex items-start">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">Private data sources</span>
+                    </motion.li>
+                  </>
+                )}
+
+                {/* Professional Plan Features */}
+                {isProfessional && !isEnterprise && (
+                  <>
+                    <motion.li variants={itemVariants} className="flex items-start">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">Monitoring of up to 10 competitors</span>
+                    </motion.li>
+                    <motion.li variants={itemVariants} className="flex items-start">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">All monitoring points</span>
+                    </motion.li>
+                    <motion.li variants={itemVariants} className="flex items-start">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">Daily email reports</span>
+                    </motion.li>
+                    <motion.li variants={itemVariants} className="flex items-start">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">Advanced dashboard</span>
+                    </motion.li>
                     <motion.li variants={itemVariants} className="flex items-start">
                       <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
                       <span className="text-sm text-gray-700">Custom alerts</span>
@@ -260,30 +305,70 @@ const StepFour: React.FC = () => {
                     </motion.li>
                   </>
                 )}
+
+                {/* Starter Plan Features */}
+                {!isProfessional && !isEnterprise && (
+                  <>
+                    <motion.li variants={itemVariants} className="flex items-start">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">Monitoring of 1 competitor</span>
+                    </motion.li>
+                    <motion.li variants={itemVariants} className="flex items-start">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">7 monitoring points</span>
+                    </motion.li>
+                    <motion.li variants={itemVariants} className="flex items-start">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">Weekly email reports</span>
+                    </motion.li>
+                    <motion.li variants={itemVariants} className="flex items-start">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">Basic dashboard</span>
+                    </motion.li>
+                  </>
+                )}
               </ul>
             </div>
             
-            <motion.div 
-              variants={itemVariants}
-              className="mt-4 pt-3 border-t border-gray-100"
-            >
-              <div className="inline-block px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full">
-                24hr Quick-Start Bonus
-              </div>
-              <p className="mt-2 text-sm text-gray-700">
-                Subscribe now to receive your preliminary competitor insights report within the next 24 hours.
-              </p>
-            </motion.div>
+            {!isEnterprise && (
+              <motion.div 
+                variants={itemVariants}
+                className="mt-4 pt-3 border-t border-gray-100"
+              >
+                <div className="inline-block px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full">
+                  24hr Quick-Start Bonus
+                </div>
+                <p className="mt-2 text-sm text-gray-700">
+                  Subscribe now to receive your preliminary competitor insights report within the next 24 hours.
+                </p>
+              </motion.div>
+            )}
             
-            <motion.div
-              variants={itemVariants} 
-              className="mt-4 pt-3 border-t border-gray-100 flex justify-between items-center"
-            >
-              <span className="font-medium text-gray-800">Total</span>
-              <span className="text-xl font-semibold text-gray-900">
-                {isProfessional ? "$99" : "$39"}<span className="text-sm font-normal text-gray-600">/month</span>
-              </span>
-            </motion.div>
+            {isEnterprise && (
+              <motion.div 
+                variants={itemVariants}
+                className="mt-4 pt-3 border-t border-gray-100"
+              >
+                <div className="inline-block px-2 py-1 bg-indigo-100 text-indigo-700 text-xs font-medium rounded-full">
+                  Enterprise Advantage
+                </div>
+                <p className="mt-2 text-sm text-gray-700">
+                  Connect with our team to create a custom intelligence solution tailored to your organization's specific needs.
+                </p>
+              </motion.div>
+            )}
+            
+            {!isEnterprise && (
+              <motion.div
+                variants={itemVariants} 
+                className="mt-4 pt-3 border-t border-gray-100 flex justify-between items-center"
+              >
+                <span className="font-medium text-gray-800">Total</span>
+                <span className="text-xl font-semibold text-gray-900">
+                  {isProfessional ? "$99" : "$39"}<span className="text-sm font-normal text-gray-600">/month</span>
+                </span>
+              </motion.div>
+            )}
           </div>
         </motion.div>
 
@@ -291,12 +376,20 @@ const StepFour: React.FC = () => {
           variants={itemVariants}
           className="bg-gray-50 rounded-xl p-4 border border-gray-200 text-xs text-gray-600"
         >
-          <p>
-            Payment is processed securely via Stripe. Your subscription can be managed or canceled anytime by contacting support.
-          </p>
-          <p className="mt-1.5">
-            Your first full report will be delivered on {getNextMonday()}.
-          </p>
+          {isEnterprise ? (
+            <p>
+              Our enterprise solutions are customized based on your specific needs. A dedicated account manager will work with you to develop a tailored package.
+            </p>
+          ) : (
+            <>
+              <p>
+                Payment is processed securely via Stripe. Your subscription can be managed or canceled anytime by contacting support.
+              </p>
+              <p className="mt-1.5">
+                Your first full report will be delivered on {getNextMonday()}.
+              </p>
+            </>
+          )}
         </motion.div>
       </motion.div>
 
@@ -321,7 +414,9 @@ const StepFour: React.FC = () => {
           <Button
             onClick={handlePayment}
             disabled={isProcessing}
-            className="group px-4 py-2.5 bg-brand-blue hover:bg-brand-darkBlue text-white rounded-full text-sm shadow-sm transition-all duration-200"
+            className={`group px-4 py-2.5 ${
+              isEnterprise ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-brand-blue hover:bg-brand-darkBlue'
+            } text-white rounded-full text-sm shadow-sm transition-all duration-200`}
           >
             {isProcessing ? (
               <span className="flex items-center">
@@ -333,8 +428,17 @@ const StepFour: React.FC = () => {
               </span>
             ) : (
               <>
-                <CreditCard className="mr-2 h-4 w-4" />
-                <span>Subscribe - {isProfessional ? "$99/month" : "$39/month"}</span>
+                {isEnterprise ? (
+                  <>
+                    <Mail className="mr-2 h-4 w-4" />
+                    <span>Contact Sales</span>
+                  </>
+                ) : (
+                  <>
+                    <CreditCard className="mr-2 h-4 w-4" />
+                    <span>Subscribe - {isProfessional ? "$99/month" : "$39/month"}</span>
+                  </>
+                )}
               </>
             )}
           </Button>
