@@ -112,7 +112,7 @@ const PricingSection = () => {
               {/* Visualization for each plan */}
               <div className="h-48 w-full mb-6">
                 {index === 0 && (
-                  <ChartContainer config={{ chartColors: { theme: { light: '#0057FF' } } }}>
+                  <ChartContainer config={{ chartColors: { theme: { light: '#0057FF', dark: '#33C3F0' } } }}>
                     <PieChart>
                       <Pie
                         data={plan.chartData}
@@ -133,7 +133,7 @@ const PricingSection = () => {
                 )}
                 
                 {index === 1 && (
-                  <ChartContainer config={{ chartColors: { theme: { light: '#0057FF' } } }}>
+                  <ChartContainer config={{ chartColors: { theme: { light: '#0057FF', dark: '#33C3F0' } } }}>
                     <LineChart
                       data={plan.chartData}
                       margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
@@ -157,7 +157,7 @@ const PricingSection = () => {
                 )}
                 
                 {index === 2 && (
-                  <ChartContainer config={{ chartColors: { theme: { light: '#0057FF' } } }}>
+                  <ChartContainer config={{ chartColors: { theme: { light: '#0057FF', dark: '#33C3F0' } } }}>
                     <BarChart
                       data={plan.chartData}
                       margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
