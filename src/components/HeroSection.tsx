@@ -16,10 +16,10 @@ const HeroSection = () => {
               Track website changes, social media activity, employee updates, and more - all in one platform. Perfect for VCs, founders, and competitive intelligence.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center md:justify-start">
-              <Button size="lg" className="bg-brand-blue hover:bg-brand-darkBlue text-lg px-6" asChild>
+              <Button size="lg" className="bg-brand-blue hover:bg-brand-darkBlue text-lg px-6 rounded-full group transition-all" asChild>
                 <Link to="/onboarding">
                   Get Reports Now
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
             </div>

@@ -93,11 +93,16 @@ const PricingSection = () => {
               
               <Button 
                 variant={plan.highlighted ? "default" : "outline"} 
-                className={`w-full ${plan.highlighted ? 'bg-brand-blue hover:bg-brand-darkBlue' : ''}`}
+                className={`w-full rounded-full group transition-all ${
+                  plan.highlighted ? 'bg-brand-blue hover:bg-brand-darkBlue' : ''
+                }`}
                 asChild
               >
                 <Link to="/onboarding">
                   {plan.price === "Custom" ? "Contact Sales" : "Get Started"}
+                  {plan.price !== "Custom" && (
+                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  )}
                 </Link>
               </Button>
             </div>
