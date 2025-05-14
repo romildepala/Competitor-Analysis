@@ -1,19 +1,24 @@
 
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+
 const testimonials = [
   {
-    quote: "CompanyRadar has transformed how we monitor our competitors. We've discovered strategic shifts weeks before they became public knowledge.",
-    author: "Sarah Johnson",
-    position: "VP of Strategy, TechCorp"
+    quote: "Spyer.ai has transformed how we monitor our competitors. We've discovered strategic shifts weeks before they became public knowledge.",
+    author: "Shuo Wang",
+    position: "Co-founder, Deel",
+    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-1.2.1&auto=format&fit=crop"
   },
   {
-    quote: "As a VC firm, we use CompanyRadar to keep tabs on our entire portfolio. The employee change tracking alone has been worth the investment.",
-    author: "David Chen",
-    position: "Partner, Venture Capital Partners"
+    quote: "As a biotech innovator, I use Spyer.ai to keep tabs on industry movements. The employee change tracking alone has been worth the investment.",
+    author: "Elizabeth Holmes",
+    position: "Founder, Theranos",
+    image: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?ixlib=rb-1.2.1&auto=format&fit=crop"
   },
   {
-    quote: "The insights we've gained have directly influenced our product roadmap. We've saved months of development by identifying market gaps early.",
-    author: "Michael Rodriguez",
-    position: "CEO, StartupInnovate"
+    quote: "The insights we've gained through Spyer.ai have directly influenced our strategic decisions. We've saved months of development by identifying market gaps early.",
+    author: "Sam Bankman-Fried",
+    position: "Founder, FTX",
+    image: "https://images.unsplash.com/photo-1501286353178-1ec871814838?ixlib=rb-1.2.1&auto=format&fit=crop"
   }
 ];
 
@@ -26,18 +31,24 @@ const TestimonialsSection = () => {
             What Our Customers Say
           </h2>
           <p className="text-xl text-gray-600">
-            Industry leaders trust CompanyRadar for their company tracking needs
+            Industry leaders trust Spyer.ai for their company tracking needs
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="testimonial-card">
+            <div key={index} className="testimonial-card bg-white p-8 rounded-xl shadow-md">
               <div className="text-2xl font-serif text-gray-400 mb-4">"</div>
               <p className="text-lg mb-8">{testimonial.quote}</p>
-              <div>
-                <div className="font-semibold">{testimonial.author}</div>
-                <div className="text-sm text-gray-500">{testimonial.position}</div>
+              <div className="flex items-center">
+                <Avatar className="h-12 w-12 mr-4">
+                  <AvatarImage src={testimonial.image} alt={testimonial.author} />
+                  <AvatarFallback>{testimonial.author.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <div className="font-semibold">{testimonial.author}</div>
+                  <div className="text-sm text-gray-500">{testimonial.position}</div>
+                </div>
               </div>
             </div>
           ))}

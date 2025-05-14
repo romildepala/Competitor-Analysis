@@ -1,8 +1,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
-import { ChartContainer } from "@/components/ui/chart";
-import { PieChart, Pie, Cell, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
 const plans = [
   {
@@ -15,14 +13,7 @@ const plans = [
       "Weekly email reports",
       "Basic dashboard",
       "Email alerts"
-    ],
-    chartData: [
-      { name: "Website Changes", value: 30 },
-      { name: "LinkedIn Activity", value: 25 },
-      { name: "Social Media", value: 25 },
-      { name: "Employee Updates", value: 20 },
-    ],
-    chartColors: ['#0057FF', '#33C3F0', '#7E69AB', '#D6BCFA']
+    ]
   },
   {
     name: "Professional",
@@ -37,19 +28,7 @@ const plans = [
       "API access",
       "Quarterly insights report"
     ],
-    highlighted: true,
-    chartData: [
-      { month: 'Jan', company1: 400, company2: 240, company3: 320 },
-      { month: 'Feb', company1: 300, company2: 398, company3: 280 },
-      { month: 'Mar', company1: 200, company2: 300, company3: 250 },
-      { month: 'Apr', company1: 278, company2: 308, company3: 220 },
-      { month: 'May', company1: 189, company2: 350, company3: 310 }
-    ],
-    chartLines: [
-      { dataKey: 'company1', stroke: '#0057FF' },
-      { dataKey: 'company2', stroke: '#33C3F0' },
-      { dataKey: 'company3', stroke: '#7E69AB' }
-    ]
+    highlighted: true
   },
   {
     name: "Enterprise",
@@ -63,13 +42,6 @@ const plans = [
       "Dedicated account manager",
       "Custom integrations",
       "Private data sources"
-    ],
-    chartData: [
-      { category: 'Website', primary: 120, secondary: 80, tertiary: 40 },
-      { category: 'Social', primary: 90, secondary: 60, tertiary: 30 },
-      { category: 'LinkedIn', primary: 100, secondary: 70, tertiary: 50 },
-      { category: 'Email', primary: 80, secondary: 50, tertiary: 30 },
-      { category: 'Press', primary: 110, secondary: 75, tertiary: 45 }
     ]
   }
 ];
@@ -108,72 +80,6 @@ const PricingSection = () => {
                 {plan.price !== "Custom" && <span className="text-gray-500">/month</span>}
               </div>
               <p className="text-gray-600 mb-6">{plan.description}</p>
-              
-              {/* Visualization for each plan */}
-              <div className="h-48 w-full mb-6">
-                {index === 0 && (
-                  <ChartContainer config={{ chartColors: { theme: { light: '#0057FF', dark: '#33C3F0' } } }}>
-                    <PieChart>
-                      <Pie
-                        data={plan.chartData}
-                        innerRadius={50}
-                        outerRadius={80}
-                        paddingAngle={2}
-                        dataKey="value"
-                        nameKey="name"
-                        label
-                      >
-                        {plan.chartData.map((entry, i) => (
-                          <Cell key={`cell-${i}`} fill={plan.chartColors[i % plan.chartColors.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip formatter={(value) => [`${value}%`, 'Coverage']} />
-                    </PieChart>
-                  </ChartContainer>
-                )}
-                
-                {index === 1 && (
-                  <ChartContainer config={{ chartColors: { theme: { light: '#0057FF', dark: '#33C3F0' } } }}>
-                    <LineChart
-                      data={plan.chartData}
-                      margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="month" />
-                      <YAxis />
-                      <Tooltip />
-                      <Legend />
-                      {plan.chartLines.map((line, i) => (
-                        <Line 
-                          key={i}
-                          type="monotone"
-                          dataKey={line.dataKey}
-                          stroke={line.stroke}
-                          activeDot={{ r: 8 }}
-                        />
-                      ))}
-                    </LineChart>
-                  </ChartContainer>
-                )}
-                
-                {index === 2 && (
-                  <ChartContainer config={{ chartColors: { theme: { light: '#0057FF', dark: '#33C3F0' } } }}>
-                    <BarChart
-                      data={plan.chartData}
-                      margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="category" />
-                      <YAxis />
-                      <Tooltip />
-                      <Legend />
-                      <Bar dataKey="primary" fill="#0057FF" />
-                      <Bar dataKey="secondary" fill="#33C3F0" />
-                      <Bar dataKey="tertiary" fill="#7E69AB" />
-                    </BarChart>
-                  </ChartContainer>
-                )}
-              </div>
               
               <ul className="space-y-3 mb-8">
                 {plan.features.map((feature, i) => (
