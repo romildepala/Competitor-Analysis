@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -31,9 +32,10 @@ const Header = () => {
           <a href="#pricing" className="font-medium hover:text-brand-blue transition-colors">Pricing</a>
           <a href="#testimonials" className="font-medium hover:text-brand-blue transition-colors">Testimonials</a>
         </nav>
-        <div className="flex items-center space-x-4">
-          <Button variant="outline" className="hidden md:inline-flex">Log In</Button>
-          <Button className="bg-brand-blue hover:bg-brand-darkBlue">Get Started</Button>
+        <div className="flex items-center">
+          <Button className="bg-brand-blue hover:bg-brand-darkBlue" asChild>
+            <Link to="/onboarding">Get Started</Link>
+          </Button>
         </div>
       </div>
     </header>

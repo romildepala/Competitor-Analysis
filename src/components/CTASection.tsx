@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const CTASection = () => {
   return (
@@ -18,9 +19,11 @@ const CTASection = () => {
               Join thousands of business leaders who use Spyer.app to stay ahead of market changes, track competitors, and make data-driven decisions.
             </p>
             <div className="flex justify-center">
-              <Button size="lg" className="bg-white text-brand-blue hover:bg-gray-100 text-lg px-6">
-                Get Reports Now
-                <ArrowRight className="ml-2 h-5 w-5" />
+              <Button size="lg" className="bg-white text-brand-blue hover:bg-gray-100 text-lg px-6" asChild>
+                <Link to="/onboarding">
+                  Get Reports Now
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
               </Button>
             </div>
           </div>

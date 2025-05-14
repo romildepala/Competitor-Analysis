@@ -1,5 +1,7 @@
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -14,9 +16,11 @@ const HeroSection = () => {
               Track website changes, social media activity, employee updates, and more - all in one platform. Perfect for VCs, founders, and competitive intelligence.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center md:justify-start">
-              <Button size="lg" className="bg-brand-blue hover:bg-brand-darkBlue text-lg px-6">
-                Get Reports Now
-                <ArrowRight className="ml-2 h-5 w-5" />
+              <Button size="lg" className="bg-brand-blue hover:bg-brand-darkBlue text-lg px-6" asChild>
+                <Link to="/onboarding">
+                  Get Reports Now
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
               </Button>
             </div>
             <div className="pt-4 text-sm text-muted-foreground">
