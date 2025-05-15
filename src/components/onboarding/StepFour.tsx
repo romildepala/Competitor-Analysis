@@ -67,7 +67,7 @@ const StepFour: React.FC = () => {
         return;
       }
       
-      const apiKey = "am_pk_test_2x3ldHrgmNweqkG68YcMXcBggZb";
+      const apiKey = "am_pk_live_2x3ldIqsIwha1huw8KIAGuPDlgP";
       const customerId = generateRandomCustomerId();
 
       // Use the correct product_id based on the recommended plan
