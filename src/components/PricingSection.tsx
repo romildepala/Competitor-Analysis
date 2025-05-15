@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { Check, ArrowRight } from "lucide-react";
+import { Check, ArrowRight, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const plans = [
@@ -98,12 +98,17 @@ const PricingSection = () => {
                 }`}
                 asChild
               >
-                <Link to="/onboarding">
-                  {plan.price === "Custom" ? "Contact Sales" : "Get Started"}
-                  {plan.price !== "Custom" && (
+                {plan.price === "Custom" ? (
+                  <a href="mailto:rayan.9896@gmail.com?subject=Spyer.app%20Enterprise%20Inquiry&body=I'm%20interested%20in%20learning%20more%20about%20Spyer.app%20enterprise%20solutions.">
+                    <Mail className="mr-2 h-5 w-5" />
+                    Contact Sales
+                  </a>
+                ) : (
+                  <Link to="/onboarding">
+                    Get Started
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                  )}
-                </Link>
+                  </Link>
+                )}
               </Button>
             </div>
           ))}

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button.tsx';
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -56,15 +55,15 @@ const StepFour: React.FC = () => {
     try {
       setIsProcessing(true);
       
-      // If enterprise plan, redirect to a contact form instead of payment
+      // If enterprise plan, redirect to email instead of the contact form
       if (isEnterprise) {
         // Create a record for step 4 (enterprise interest) asynchronously without blocking transition
         createStepRecord(4).catch(error => {
           console.error('Error creating step record:', error);
         });
         
-        // Redirect to enterprise contact page
-        window.location.href = "/onboarding/complete?plan=enterprise";
+        // Redirect to email client
+        window.location.href = "mailto:rayan.9896@gmail.com?subject=Spyer.app%20Enterprise%20Solution%20Inquiry&body=Hello,%0A%0AI'm%20interested%20in%20learning%20more%20about%20Spyer.app%20enterprise%20solutions%20for%20my%20company%20" + encodeURIComponent(onboardingData.companyName) + ".%0A%0APlease%20contact%20me%20at%20" + encodeURIComponent(onboardingData.email) + "%20to%20discuss%20our%20specific%20requirements.%0A%0AThank%20you.";
         return;
       }
       
@@ -170,6 +169,7 @@ const StepFour: React.FC = () => {
   const validCompetitors = onboardingData.competitors.filter(c => c.name.trim() !== '').length;
 
   return (
+    
     <div className="max-w-md mx-auto p-8">
       <motion.div 
         className="text-center mb-8"
