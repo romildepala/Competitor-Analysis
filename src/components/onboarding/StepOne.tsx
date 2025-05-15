@@ -12,14 +12,12 @@ const StepOne: React.FC = () => {
     onboardingData,
     updateOnboardingData,
     setCurrentStep,
-    isStepValid,
-    createStepRecord
+    isStepValid
   } = useOnboarding();
 
   const handleNext = () => {
     if (isStepValid()) {
-      // Create a record for step 1 asynchronously without blocking the transition
-      createStepRecord(1).catch(err => console.error('Error creating step record:', err));
+      // Just move to the next step - data will be saved asynchronously
       setCurrentStep(2);
     }
   };

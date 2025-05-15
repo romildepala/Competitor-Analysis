@@ -15,6 +15,12 @@ export const createStepRecord = async (
     // Check if this browser has a stored submission ID in localStorage
     const storedId = localStorage.getItem('onboarding_submission_id');
     
+    // If we're on step 1, don't save empty data - only save when the user moves to step 2
+    if (step === 1 && !storedId) {
+      console.log("Skipping initial data save on step 1");
+      return null;
+    }
+    
     // Prepare the data object with all the fields we need to update
     const dataToUpdate = {
       user_email: onboardingData.email,

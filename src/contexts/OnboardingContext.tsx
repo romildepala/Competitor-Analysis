@@ -14,6 +14,7 @@ export const OnboardingProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const [currentStep, setCurrentStep] = useState(1);
   const [paymentSuccessful, setPaymentSuccessful] = useState(false);
   const [submissionId, setSubmissionId] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
   
   // State for the onboarding data
   const [onboardingData, setOnboardingData] = useState<OnboardingData>(initialOnboardingData);
@@ -122,38 +123,38 @@ export const OnboardingProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   // Create a new record for the current step in Supabase
   const createStepRecord = async (step: number) => {
     try {
+      setIsSaving(true);
       const result = await createStepRecordInSupabase(step, onboardingData, setSubmissionId);
+      setIsSaving(false);
       return result;
     } catch (error) {
+      setIsSaving(false);
       console.error('Error saving data to Supabase:', error);
       toast.error("Failed to save your data. Please try again later.");
       throw error;
     }
   };
 
-  // Handle step changes - now we add a competitor or custom subject if needed
-  const handleStepChange = async (step: number) => {
-    try {
-      // If moving to step 2 and there are no competitors, add one
-      if (step === 2 && onboardingData.competitors.length === 0) {
-        addCompetitor();
-      }
-      
-      // If moving to step 3 and there are no custom subjects, add one
-      if (step === 3 && onboardingData.customSubjects.length === 0) {
-        addCustomSubject();
-      }
-      
-      // Create a record for the current step before moving to the next
-      await createStepRecord(currentStep);
-      
-      // Then update the step
-      setCurrentStep(step);
-    } catch (err) {
-      console.error('Error during step change:', err);
-      toast.error("Failed to save your progress. Proceeding anyway.");
-      // Still update the step even if saving failed
-      setCurrentStep(step);
+  // Handle step changes - now it's fully async and won't block the UI
+  const handleStepChange = (step: number) => {
+    // If moving to step 2 and there are no competitors, add one
+    if (step === 2 && onboardingData.competitors.length === 0) {
+      addCompetitor();
+    }
+    
+    // If moving to step 3 and there are no custom subjects, add one
+    if (step === 3 && onboardingData.customSubjects.length === 0) {
+      addCustomSubject();
+    }
+    
+    // First update the UI immediately for better UX
+    setCurrentStep(step);
+    
+    // Then save the data asynchronously - don't wait for this
+    if (step > 1) { // Only save after step 1
+      createStepRecord(currentStep).catch(err => {
+        console.error('Background save failed:', err);
+      });
     }
   };
 
@@ -174,7 +175,8 @@ export const OnboardingProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     paymentSuccessful,
     setPaymentSuccessful,
     submissionId,
-    createStepRecord
+    createStepRecord,
+    isSaving
   };
 
   return (

@@ -8,7 +8,6 @@ import StepOne from './StepOne.tsx';
 import StepTwo from './StepTwo.tsx';
 import StepThree from './StepThree.tsx';
 import StepFour from './StepFour.tsx';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from "sonner";
 
 // Wrapping the OnboardingSteps in a separate function component ensures
@@ -36,27 +35,13 @@ const OnboardingStepsContent: React.FC = () => {
     }
   };
 
-  // Save data when navigation happens
-  useEffect(() => {
-    if (currentStep > 0) {
-      createStepRecord(currentStep)
-        .then(() => {
-          // Data saved successfully
-          console.log("Data saved for step", currentStep);
-        })
-        .catch(err => {
-          console.error('Error saving step data:', err);
-          toast.error("Error saving your progress. Please try again.");
-        });
-    }
-  }, [currentStep, createStepRecord]);
-
-  // Redirect to complete page if we're on step 5
+  // Save final data when navigation to complete happens
   useEffect(() => {
     if (currentStep === 5) {
-      // Final save before navigating away
+      // Final save before navigating away - do this in background
       createStepRecord(5)
         .then(() => {
+          console.log("Final onboarding data saved successfully");
           navigate('/complete');
         })
         .catch(err => {
