@@ -26,7 +26,7 @@ const CTASection = () => {
                 </Link>
               </Button>
               
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 text-lg px-6 rounded-full group transition-all" asChild>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 dark:border-white dark:text-white dark:hover:bg-white/10 text-lg px-6 rounded-full group transition-all" asChild>
                 <a href="mailto:rayan.9896@gmail.com?subject=Spyer.app%20Enterprise%20Inquiry&body=I'm%20interested%20in%20learning%20more%20about%20Spyer.app%20enterprise%20solutions.">
                   <Mail className="mr-2 h-5 w-5" />
                   Contact Sales

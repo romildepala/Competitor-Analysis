@@ -49,13 +49,13 @@ const plans = [
 
 const PricingSection = () => {
   return (
-    <section id="pricing" className="py-16 md:py-24 bg-white">
+    <section id="pricing" className="py-16 md:py-24 bg-white dark:bg-transparent">
       <div className="container">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Simple, Transparent Pricing
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 dark:text-gray-300">
             Choose the plan that fits your company monitoring needs
           </p>
         </div>
@@ -66,27 +66,27 @@ const PricingSection = () => {
               key={index}
               className={`rounded-xl p-8 border ${
                 plan.highlighted 
-                  ? 'border-brand-blue shadow-lg shadow-blue-100' 
-                  : 'border-gray-200'
-              }`}
+                  ? 'border-brand-blue shadow-lg shadow-blue-100 dark:shadow-none dark:border-brand-blue/50' 
+                  : 'border-gray-200 dark:border-gray-700'
+              } dark:bg-gray-800/30`}
             >
               {plan.highlighted && (
-                <div className="bg-brand-lightBlue text-brand-blue text-sm font-medium px-3 py-1 rounded-full w-fit mb-4">
+                <div className="bg-brand-lightBlue text-brand-blue text-sm font-medium px-3 py-1 rounded-full w-fit mb-4 dark:bg-blue-900/60 dark:text-blue-300">
                   Most Popular
                 </div>
               )}
               <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
               <div className="flex items-end gap-1 mb-2">
                 <span className="text-4xl font-bold">{plan.price}</span>
-                {plan.price !== "Custom" && <span className="text-gray-500">/month</span>}
+                {plan.price !== "Custom" && <span className="text-gray-500 dark:text-gray-400">/month</span>}
               </div>
-              <p className="text-gray-600 mb-6">{plan.description}</p>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">{plan.description}</p>
               
               <ul className="space-y-3 mb-8">
                 {plan.features.map((feature, i) => (
                   <li key={i} className="flex items-center gap-2">
                     <Check className="h-5 w-5 text-green-500" />
-                    <span>{feature}</span>
+                    <span className="dark:text-gray-300">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -94,7 +94,7 @@ const PricingSection = () => {
               <Button 
                 variant={plan.highlighted ? "default" : "outline"} 
                 className={`w-full rounded-full group transition-all ${
-                  plan.highlighted ? 'bg-brand-blue hover:bg-brand-darkBlue' : ''
+                  plan.highlighted ? 'bg-brand-blue hover:bg-brand-darkBlue' : 'dark:border-white/20 dark:text-white dark:hover:bg-white/10'
                 }`}
                 asChild
               >

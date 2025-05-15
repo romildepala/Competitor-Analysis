@@ -49,12 +49,12 @@ const StepFive: React.FC = () => {
         animate="visible"
         variants={containerVariants}
       >
-        <motion.div variants={itemVariants} className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
-          <CheckCircle className="w-8 h-8 text-green-600" />
+        <motion.div variants={itemVariants} className="mx-auto w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-6">
+          <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
         </motion.div>
         
         <motion.h1 
-          className="text-2xl font-semibold text-gray-900 mb-2"
+          className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2"
           variants={itemVariants}
         >
           {isEnterprise 
@@ -63,7 +63,7 @@ const StepFive: React.FC = () => {
         </motion.h1>
         
         <motion.p 
-          className="text-gray-500 max-w-sm mx-auto mb-8"
+          className="text-gray-500 dark:text-gray-400 max-w-sm mx-auto mb-8"
           variants={itemVariants}
         >
           {isEnterprise 
@@ -73,41 +73,41 @@ const StepFive: React.FC = () => {
         
         <motion.div 
           variants={itemVariants}
-          className="bg-white rounded-xl border border-gray-200 p-6 text-left mb-8"
+          className="bg-white dark:bg-gray-800/30 rounded-xl border border-gray-200 dark:border-gray-700 p-6 text-left mb-8"
         >
-          <h2 className="font-medium text-gray-800 mb-4">What's Next:</h2>
+          <h2 className="font-medium text-gray-800 dark:text-gray-200 mb-4">What's Next:</h2>
           
           <div className="space-y-4">
             {isEnterprise ? (
               <>
                 <div className="flex">
-                  <div className="w-6 h-6 rounded-full bg-brand-lightBlue flex items-center justify-center text-xs text-brand-blue font-medium mr-3 shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-brand-lightBlue dark:bg-blue-900/60 flex items-center justify-center text-xs text-brand-blue dark:text-blue-300 font-medium mr-3 shrink-0">
                     1
                   </div>
                   <div>
-                    <p className="text-sm text-gray-700">
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
                       A dedicated enterprise account manager will contact you within 1 business day.
                     </p>
                   </div>
                 </div>
                 
                 <div className="flex">
-                  <div className="w-6 h-6 rounded-full bg-brand-lightBlue flex items-center justify-center text-xs text-brand-blue font-medium mr-3 shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-brand-lightBlue dark:bg-blue-900/60 flex items-center justify-center text-xs text-brand-blue dark:text-blue-300 font-medium mr-3 shrink-0">
                     2
                   </div>
                   <div>
-                    <p className="text-sm text-gray-700">
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
                       We'll schedule a consultation to understand your business goals and requirements.
                     </p>
                   </div>
                 </div>
                 
                 <div className="flex">
-                  <div className="w-6 h-6 rounded-full bg-brand-lightBlue flex items-center justify-center text-xs text-brand-blue font-medium mr-3 shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-brand-lightBlue dark:bg-blue-900/60 flex items-center justify-center text-xs text-brand-blue dark:text-blue-300 font-medium mr-3 shrink-0">
                     3
                   </div>
                   <div>
-                    <p className="text-sm text-gray-700">
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
                       Our team will create a customized competitive intelligence solution tailored to your organization.
                     </p>
                   </div>
@@ -116,33 +116,33 @@ const StepFive: React.FC = () => {
             ) : (
               <>
                 <div className="flex">
-                  <div className="w-6 h-6 rounded-full bg-brand-lightBlue flex items-center justify-center text-xs text-brand-blue font-medium mr-3 shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-brand-lightBlue dark:bg-blue-900/60 flex items-center justify-center text-xs text-brand-blue dark:text-blue-300 font-medium mr-3 shrink-0">
                     1
                   </div>
                   <div>
-                    <p className="text-sm text-gray-700">
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
                       Check your email for account activation details.
                     </p>
                   </div>
                 </div>
                 
                 <div className="flex">
-                  <div className="w-6 h-6 rounded-full bg-brand-lightBlue flex items-center justify-center text-xs text-brand-blue font-medium mr-3 shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-brand-lightBlue dark:bg-blue-900/60 flex items-center justify-center text-xs text-brand-blue dark:text-blue-300 font-medium mr-3 shrink-0">
                     2
                   </div>
                   <div>
-                    <p className="text-sm text-gray-700">
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
                       We'll send your preliminary report within 24 hours.
                     </p>
                   </div>
                 </div>
                 
                 <div className="flex">
-                  <div className="w-6 h-6 rounded-full bg-brand-lightBlue flex items-center justify-center text-xs text-brand-blue font-medium mr-3 shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-brand-lightBlue dark:bg-blue-900/60 flex items-center justify-center text-xs text-brand-blue dark:text-blue-300 font-medium mr-3 shrink-0">
                     3
                   </div>
                   <div>
-                    <p className="text-sm text-gray-700">
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
                       Complete onboarding with our team to fine-tune your monitoring.
                     </p>
                   </div>
