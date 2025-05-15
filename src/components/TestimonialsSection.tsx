@@ -1,17 +1,18 @@
+
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 const testimonials = [{
-  quote: "Spyer.app didn't just transform our competitor monitoring—it basically turned us into omniscient overlords. We now casually spot strategic pivots weeks before anyone else even files their press release.",
+  quote: "Spyer didn't just transform our competitor monitoring—it basically turned us into omniscient overlords. We now casually spot strategic pivots weeks before anyone else even files their press release.",
   author: "Alex Bouaziz",
   position: "Co-founder, Deel",
   image: "/lovable-uploads/46294b2d-d139-4884-9056-66c07c9c0a4d.png"
 }, {
-  quote: "As a biotech visionary, I use Spyer.app to stalk industry gossip so obsessively that our 'employee change' alerts feel more like inside jokes. Totally worth every penny—because who needs lab breakthroughs when you can track org charts?",
+  quote: "As a biotech visionary, I use Spyer to stalk industry gossip so obsessively that our 'employee change' alerts feel more like inside jokes. Totally worth every penny—because who needs lab breakthroughs when you can track org charts?",
   author: "Elizabeth Holmes",
   position: "Founder, Theranos",
   image: "/lovable-uploads/aff64051-2314-4b9b-a8c3-0042d1cb9b19.png"
 }, {
-  quote: "Thanks to Spyer.app's crystal-ball insights, we've 'saved' entire months of development—if by 'saved' you mean outsourced our market research to an algorithm that already knew what we wanted. Productivity so future-proof it hurts.",
+  quote: "Thanks to Spyer's crystal-ball insights, we've 'saved' entire months of development—if by 'saved' you mean outsourced our market research to an algorithm that already knew what we wanted. Productivity so future-proof it hurts.",
   author: "S. Bankman-Fried",
   position: "Founder, FTX",
   image: "/lovable-uploads/3e91268a-687c-43b8-b9d5-03345bede23f.png"
