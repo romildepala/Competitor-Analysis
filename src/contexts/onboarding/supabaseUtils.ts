@@ -14,43 +14,42 @@ export const createStepRecord = async (
     
     // Check if this browser has a stored submission ID in localStorage
     const storedId = localStorage.getItem('onboarding_submission_id');
+    
+    // Prepare the data object with all the fields we need to update
+    const dataToUpdate = {
+      user_email: onboardingData.email,
+      company_name: onboardingData.companyName,
+      current_step: step,
+      competitors: onboardingData.competitors,
+      monitoring_points: onboardingData.monitoringPoints,
+      custom_subjects: onboardingData.customSubjects,
+      interested_in_premium: onboardingData.interestedInPremium,
+      completed: step === 5,
+      updated_at: new Date().toISOString()
+    };
+    
+    console.log("Saving onboarding data to Supabase:", { step, submissionId: storedId, data: dataToUpdate });
+    
     if (storedId) {
       submissionId = storedId;
       
       // Update the existing record
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('onboarding_submissions')
-        .update({
-          user_email: onboardingData.email,
-          company_name: onboardingData.companyName,
-          current_step: step,
-          competitors: onboardingData.competitors,
-          monitoring_points: onboardingData.monitoringPoints,
-          custom_subjects: onboardingData.customSubjects,
-          interested_in_premium: onboardingData.interestedInPremium,
-          completed: step === 5,
-          updated_at: new Date().toISOString()
-        })
+        .update(dataToUpdate)
         .eq('id', submissionId);
       
       if (error) {
         console.error('Error updating submission:', error);
         return;
       }
+      
+      console.log("Successfully updated submission record:", data);
     } else {
       // Create a new record
       const { data, error } = await supabase
         .from('onboarding_submissions')
-        .insert({
-          user_email: onboardingData.email,
-          company_name: onboardingData.companyName,
-          current_step: step,
-          competitors: onboardingData.competitors,
-          monitoring_points: onboardingData.monitoringPoints,
-          custom_subjects: onboardingData.customSubjects,
-          interested_in_premium: onboardingData.interestedInPremium,
-          completed: step === 5
-        })
+        .insert(dataToUpdate)
         .select('id');
       
       if (error) {
@@ -63,9 +62,13 @@ export const createStepRecord = async (
         submissionId = data[0].id;
         localStorage.setItem('onboarding_submission_id', submissionId);
         setSubmissionId(submissionId);
+        console.log("Successfully created new submission record:", data[0]);
       }
     }
+    
+    return submissionId;
   } catch (error) {
     console.error('Error creating step record:', error);
+    return null;
   }
 };

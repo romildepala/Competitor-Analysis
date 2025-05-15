@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState } from 'react';
 import { OnboardingContextType, OnboardingData, Competitor, CustomSubject } from './onboarding/types';
 import { initialOnboardingData } from './onboarding/initialData';
 import { createStepRecord as createStepRecordInSupabase } from './onboarding/supabaseUtils';
+import { toast } from "sonner";
 
 // Create the context with a default value
 const OnboardingContext = createContext<OnboardingContextType | undefined>(undefined);
@@ -120,25 +121,40 @@ export const OnboardingProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
   // Create a new record for the current step in Supabase
   const createStepRecord = async (step: number) => {
-    return createStepRecordInSupabase(step, onboardingData, setSubmissionId);
+    try {
+      const result = await createStepRecordInSupabase(step, onboardingData, setSubmissionId);
+      return result;
+    } catch (error) {
+      console.error('Error saving data to Supabase:', error);
+      toast.error("Failed to save your data. Please try again later.");
+      throw error;
+    }
   };
 
   // Handle step changes - now we add a competitor or custom subject if needed
-  const handleStepChange = (step: number) => {
-    // If moving to step 2 and there are no competitors, add one
-    if (step === 2 && onboardingData.competitors.length === 0) {
-      addCompetitor();
+  const handleStepChange = async (step: number) => {
+    try {
+      // If moving to step 2 and there are no competitors, add one
+      if (step === 2 && onboardingData.competitors.length === 0) {
+        addCompetitor();
+      }
+      
+      // If moving to step 3 and there are no custom subjects, add one
+      if (step === 3 && onboardingData.customSubjects.length === 0) {
+        addCustomSubject();
+      }
+      
+      // Create a record for the current step before moving to the next
+      await createStepRecord(currentStep);
+      
+      // Then update the step
+      setCurrentStep(step);
+    } catch (err) {
+      console.error('Error during step change:', err);
+      toast.error("Failed to save your progress. Proceeding anyway.");
+      // Still update the step even if saving failed
+      setCurrentStep(step);
     }
-    
-    // If moving to step 3 and there are no custom subjects, add one
-    if (step === 3 && onboardingData.customSubjects.length === 0) {
-      addCustomSubject();
-    }
-    
-    // Create a new record for this step asynchronously
-    createStepRecord(currentStep).catch(err => console.error('Error creating step record:', err));
-    
-    setCurrentStep(step);
   };
 
   const value = {

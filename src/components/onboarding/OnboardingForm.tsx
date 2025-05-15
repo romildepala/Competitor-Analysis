@@ -9,11 +9,12 @@ import StepTwo from './StepTwo.tsx';
 import StepThree from './StepThree.tsx';
 import StepFour from './StepFour.tsx';
 import { supabase } from '@/integrations/supabase/client';
+import { toast } from "sonner";
 
 // Wrapping the OnboardingSteps in a separate function component ensures
 // it only gets rendered inside the OnboardingProvider
 const OnboardingStepsContent: React.FC = () => {
-  const { currentStep, setCurrentStep } = useOnboarding();
+  const { currentStep, setCurrentStep, createStepRecord } = useOnboarding();
   const navigate = useNavigate();
 
   // Refined animation variants inspired by Apple's smooth transitions
@@ -35,12 +36,36 @@ const OnboardingStepsContent: React.FC = () => {
     }
   };
 
+  // Save data when navigation happens
+  useEffect(() => {
+    if (currentStep > 0) {
+      createStepRecord(currentStep)
+        .then(() => {
+          // Data saved successfully
+          console.log("Data saved for step", currentStep);
+        })
+        .catch(err => {
+          console.error('Error saving step data:', err);
+          toast.error("Error saving your progress. Please try again.");
+        });
+    }
+  }, [currentStep, createStepRecord]);
+
   // Redirect to complete page if we're on step 5
   useEffect(() => {
     if (currentStep === 5) {
-      navigate('/complete');
+      // Final save before navigating away
+      createStepRecord(5)
+        .then(() => {
+          navigate('/complete');
+        })
+        .catch(err => {
+          console.error('Error saving final step data:', err);
+          // Navigate anyway to prevent user being stuck
+          navigate('/complete');
+        });
     }
-  }, [currentStep, navigate]);
+  }, [currentStep, navigate, createStepRecord]);
 
   // Define which step component to render
   const renderStep = (step: number) => {
