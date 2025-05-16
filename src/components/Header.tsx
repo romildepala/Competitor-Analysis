@@ -22,7 +22,7 @@ const Header = () => {
           <img 
             src="/lovable-uploads/fce5ec2f-a6af-4890-b209-b249cff5a0b3.png" 
             alt="Spyer Logo" 
-            className="h-8 w-8"
+            className="h-6 w-6"
           />
           <div className="text-2xl font-bold text-brand-blue">Spyer</div>
         </div>
