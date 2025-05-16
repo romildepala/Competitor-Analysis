@@ -77,14 +77,7 @@ const monitoringPoints = [
     icon: <svg className="h-6 w-6 text-[#020810]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
       <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM15.31 15.75C15.31 16.54 14.67 17.18 13.88 17.18H10.13C9.34 17.18 8.7 16.53 8.7 15.75V12.61C8.7 11.82 9.34 11.18 10.13 11.18H13.88C14.67 11.18 15.31 11.83 15.31 12.61V15.75ZM10.63 13.81C10.05 13.81 9.58 14.28 9.58 14.86C9.58 15.44 10.05 15.91 10.63 15.91C11.21 15.91 11.68 15.44 11.68 14.86C11.68 14.28 11.21 13.81 10.63 13.81ZM13.78 7.51C13.78 7.15 13.49 6.86 13.13 6.86H10.87C10.51 6.86 10.22 7.15 10.22 7.51V9.77C10.22 10.13 10.51 10.42 10.87 10.42H13.13C13.49 10.42 13.78 10.13 13.78 9.77V7.51Z"/>
     </svg>
-  },
-  {
-    title: "Monitor pretty much anything",
-    description: "Flexible enough to track custom data sources based on your needs.",
-    icon: <svg className="h-6 w-6 text-[#9333EA]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-    </svg>
-  },
+  }
 ];
 
 const FeaturesSection = () => {
@@ -136,27 +129,31 @@ const FeaturesSection = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {monitoringPoints.slice(0, -1).map((point, index) => (
+          {monitoringPoints.map((point, index) => (
             <motion.div 
               key={index} 
-              className="feature-card bg-white p-6 rounded-xl shadow-sm border border-gray-100"
+              className="feature-card bg-brand-blue p-6 rounded-xl shadow-sm border border-brand-blue text-gray-900"
               variants={itemVariants}
             >
               <div className="mb-4 text-2xl">{point.icon}</div>
-              <h3 className="text-xl font-semibold mb-2">{point.title}</h3>
-              <p className="text-gray-600">{point.description}</p>
+              <h3 className="text-xl font-semibold mb-2 text-gray-900">{point.title}</h3>
+              <p className="text-gray-700">{point.description}</p>
             </motion.div>
           ))}
-
-          {/* Special styled button-like box for the last item */}
-          <motion.div
-            className="feature-card bg-blue-600 p-6 rounded-xl shadow-md border border-blue-500 text-white cursor-pointer hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105"
+          
+          {/* Separate "Monitor pretty much anything" button */}
+          <motion.div 
+            className="feature-card !bg-brand-blue p-6 rounded-xl shadow-md border border-brand-blue text-white cursor-pointer hover:bg-brand-darkBlue transition-colors duration-300 transform hover:scale-105"
             variants={itemVariants}
             onClick={handleStartOnboarding}
           >
-            <div className="mb-4 text-2xl">{monitoringPoints[monitoringPoints.length - 1].icon}</div>
-            <h3 className="text-xl font-semibold mb-2">{monitoringPoints[monitoringPoints.length - 1].title}</h3>
-            <p className="text-blue-100">{monitoringPoints[monitoringPoints.length - 1].description}</p>
+            <div className="mb-4 text-2xl">
+              <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold mb-2 text-white">Monitor pretty much anything</h3>
+            <p className="text-blue-100">Flexible enough to track custom data sources based on your needs.</p>
             <div className="mt-4 inline-flex items-center text-white font-medium">
               <span>Get started</span>
               <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

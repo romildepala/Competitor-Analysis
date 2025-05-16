@@ -29,7 +29,7 @@ const comparisonData = {
   competitors: [
     {
       name: "Our Tool",
-      logo: "https://via.placeholder.com/80x40/0080ff/FFFFFF/?text=OurTool",
+      logo: "/logos/spyer.jpg",
       values: {
         "Is Instantaneous": { value: true },
         "Includes All Data Sources": { value: true },
@@ -37,11 +37,11 @@ const comparisonData = {
         "Offers Real-Time Notifications": { value: true },
         "Pricing": { value: true, label: "$49/mo" },
       },
-      highlighted: true,
+      highlighted: false,
     },
     {
       name: "Similar Web",
-      logo: "https://via.placeholder.com/80x40/FF5733/FFFFFF/?text=SimilarWeb",
+      logo: "/logos/similarweb.jpg",
       values: {
         "Is Instantaneous": { value: false },
         "Includes All Data Sources": { value: false },
@@ -52,7 +52,7 @@ const comparisonData = {
     },
     {
       name: "Crayon",
-      logo: "https://via.placeholder.com/80x40/33FF57/000000/?text=Crayon",
+      logo: "/logos/crayon.jpg",
       values: {
         "Is Instantaneous": { value: false },
         "Includes All Data Sources": { value: false },
@@ -63,7 +63,7 @@ const comparisonData = {
     },
     {
       name: "SEMrush/HRFs",
-      logo: "https://via.placeholder.com/80x40/5733FF/FFFFFF/?text=SEMrush",
+      logo: "/logos/semrush.jpg",
       values: {
         "Is Instantaneous": { value: false },
         "Includes All Data Sources": { value: false },
@@ -74,7 +74,7 @@ const comparisonData = {
     },
     {
       name: "Manual Analysis",
-      logo: "https://via.placeholder.com/80x40/808080/FFFFFF/?text=Manual",
+      logo: "/logos/your-intern.jpg",
       values: {
         "Is Instantaneous": { value: false },
         "Includes All Data Sources": { value: true },
@@ -95,7 +95,7 @@ const CompetitorComparisonTable = () => {
             Competitor analysis, analysis
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300">
-            Multiple Products in One - No One Else Can Do Similar Web Sam Rush LinkedIn Sales Nav And Your Intern
+            Multiple Products in One. Combines SimilarWeb, SEMrush, Sales Nav, your intern and more.
           </p>
         </div>
 
@@ -107,17 +107,17 @@ const CompetitorComparisonTable = () => {
                 {comparisonData.competitors.map((competitor, index) => (
                   <th 
                     key={index} 
-                    className={`p-4 text-center ${
-                      competitor.highlighted
-                        ? 'bg-brand-lightBlue dark:bg-blue-900/30'
-                        : ''
-                    }`}
+                    className="p-4 text-center"
                   >
                     <div className="flex flex-col items-center justify-center">
                       <img 
                         src={competitor.logo} 
                         alt={competitor.name}
-                        className="h-12 object-contain"
+                        className={`max-w-full object-contain ${
+                          competitor.name === "Similar Web" || competitor.name === "Manual Analysis" 
+                            ? "h-5" 
+                            : "h-12"
+                        }`}
                       />
                     </div>
                   </th>
@@ -139,11 +139,7 @@ const CompetitorComparisonTable = () => {
                     return (
                       <td 
                         key={colIndex} 
-                        className={`p-4 text-center ${
-                          competitor.highlighted
-                            ? 'bg-brand-lightBlue/5 dark:bg-blue-900/10'
-                            : ''
-                        }`}
+                        className="p-4 text-center"
                       >
                         {feature.name === "Pricing" ? (
                           <div className="text-base font-semibold">
