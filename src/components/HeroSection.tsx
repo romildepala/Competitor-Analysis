@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -26,8 +25,8 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-gradient-to-b from-brand-lightBlue to-white">
-      <div className="container">
+    <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-white">
+      <div className="container max-w-[1100px] mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div 
             className="space-y-6 text-center md:text-left"
@@ -36,7 +35,7 @@ const HeroSection = () => {
             animate="visible"
           >
             <motion.h1 
-              className="text-4xl md:text-6xl font-bold leading-tight"
+              className="text-5xl md:text-7xl font-bold leading-tight"
               variants={itemVariants}
             >
               The world's first <span className="gradient-text">AI spy</span>
@@ -48,15 +47,23 @@ const HeroSection = () => {
               Track competitors 24/7. Instantly detect website changes, social media activity, employee updates, and more. Stay ahead and save hours per week.
             </motion.p>
             <motion.div 
-              className="flex flex-col sm:flex-row gap-4 pt-4 justify-center md:justify-start"
+              className="flex flex-col sm:flex-row gap-4 pt-4 justify-center md:justify-start items-center"
               variants={itemVariants}
             >
               <Button size="lg" className="bg-brand-blue hover:bg-brand-darkBlue text-lg px-6 rounded-full group transition-all" asChild>
                 <Link to="/onboarding">
-                  Get Reports Now
+                  Hire AI Spy ($99)
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
+              <div className="flex items-center gap-1 ml-0 sm:ml-4 mt-2 sm:mt-0">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="#444" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                  </svg>
+                ))}
+                <span className="text-xl font-medium text-gray-600 ml-2">5.0</span>
+              </div>
             </motion.div>
             <motion.div 
               className="pt-4 text-sm text-muted-foreground"
@@ -67,44 +74,22 @@ const HeroSection = () => {
           </motion.div>
 
           <motion.div 
-            className="relative animate-float"
+            className="relative max-w-[500px] mx-auto"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           >
-            <div className="bg-white p-6 rounded-2xl shadow-xl border border-gray-100">
-              <div className="text-2xl font-bold mb-6">Standard Monitoring Points</div>
-              <div className="space-y-5">
-                {[
-                  { name: 'Website and App Changes', desc: 'New features, pricing, UX updates', active: false },
-                  { name: 'LinkedIn Company Page Activity', desc: 'Content, follower growth', active: true },
-                  { name: 'Key LinkedIn Employee Profile Updates', desc: 'Public job changes, new hires in specific roles', active: false },
-                  { name: 'Company-Sent Marketing Emails', desc: 'Requires a method for you to share examples with us', active: false },
-                  { name: 'Social Media Activity', desc: 'Official channels: e.g., Twitter, Facebook', active: false },
-                ].map((item, index) => (
-                  <motion.div 
-                    key={index} 
-                    className="flex items-start gap-3"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.7 + (index * 0.1), duration: 0.3 }}
-                  >
-                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center mt-1 ${
-                      item.active 
-                        ? 'bg-brand-blue border-brand-blue' 
-                        : 'border-gray-300'
-                    }`}>
-                      {item.active && (
-                        <div className="w-3 h-3 bg-white rounded-full"></div>
-                      )}
-                    </div>
-                    <div className="flex-1">
-                      <div className="font-medium">{item.name}</div>
-                      <div className="text-sm text-gray-500">{item.desc}</div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+            <div className="bg-white rounded-2xl shadow-xl">
+              <video 
+                autoPlay 
+                loop 
+                muted 
+                playsInline
+                className="w-full rounded-lg"
+              >
+                <source src="/spyer-report-demo.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
             </div>
             <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-brand-blue rounded-full opacity-20 -z-10"></div>
             <div className="absolute -top-6 -left-6 w-12 h-12 bg-blue-400 rounded-full opacity-20 -z-10"></div>

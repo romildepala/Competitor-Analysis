@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 const CTASection = () => {
-  return <section className="py-16 md:py-24">
-      <div className="container">
+  return <section className="py-16 md:py-24 bg-gray-50">
+      <div className="container max-w-[1100px] mx-auto">
         <div className="bg-brand-blue rounded-2xl text-white p-8 md:p-12 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-400 rounded-full opacity-20 -translate-y-1/2 translate-x-1/2"></div>
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-700 rounded-full opacity-20 translate-y-1/2 -translate-x-1/2"></div>

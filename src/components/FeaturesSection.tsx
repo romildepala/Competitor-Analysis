@@ -1,4 +1,3 @@
-
 import { CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -79,8 +78,8 @@ const FeaturesSection = () => {
   };
 
   return (
-    <section id="features" className="py-16 md:py-24 bg-white">
-      <div className="container">
+    <section id="features" className="py-16 md:py-24 bg-gray-50">
+      <div className="container max-w-[1100px] mx-auto">
         <motion.div 
           className="text-center max-w-3xl mx-auto mb-16"
           initial={{ opacity: 0, y: 20 }}

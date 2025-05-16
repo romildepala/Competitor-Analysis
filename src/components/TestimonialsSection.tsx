@@ -1,4 +1,3 @@
-
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 const testimonials = [{
@@ -18,8 +17,8 @@ const testimonials = [{
   image: "/lovable-uploads/3e91268a-687c-43b8-b9d5-03345bede23f.png"
 }];
 const TestimonialsSection = () => {
-  return <section id="testimonials" className="py-16 md:py-24 bg-brand-gray">
-      <div className="container">
+  return <section id="testimonials" className="py-16 md:py-24 bg-white">
+      <div className="container max-w-[1100px] mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             What Our Customers Say

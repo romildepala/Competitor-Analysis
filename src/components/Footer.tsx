@@ -1,8 +1,7 @@
-
 const Footer = () => {
   return (
     <footer className="bg-white border-t border-gray-200 py-12">
-      <div className="container">
+      <div className="container max-w-[1100px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div>
             <div className="text-2xl font-bold text-brand-blue mb-4">Spyer.app</div>

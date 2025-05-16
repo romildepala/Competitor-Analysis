@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -49,8 +48,8 @@ const plans = [
 
 const PricingSection = () => {
   return (
-    <section id="pricing" className="py-16 md:py-24 bg-white dark:bg-transparent">
-      <div className="container">
+    <section id="pricing" className="py-16 md:py-24 bg-gray-50">
+      <div className="container max-w-[1100px] mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Simple, Transparent Pricing
