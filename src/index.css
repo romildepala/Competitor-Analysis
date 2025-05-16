@@ -100,7 +100,7 @@
 }
 
 .gradient-text {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-blue to-blue-500;
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-blue via-indigo-500 to-blue-500;
 }
 
 .gradient-bg {

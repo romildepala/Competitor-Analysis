@@ -14,34 +14,35 @@ const StepFour: React.FC = () => {
 
   // Determine recommended plan based on user responses
   const determineRecommendedPlan = () => {
-    const { competitors, monitoringPoints, customSubjects } = onboardingData;
+    // const { competitors, monitoringPoints, customSubjects } = onboardingData;
     
-    // Count valid competitors (non-empty names)
-    const validCompetitors = competitors.filter(c => c.name.trim() !== '').length;
+    // // Count valid competitors (non-empty names)
+    // const validCompetitors = competitors.filter(c => c.name.trim() !== '').length;
     
-    // Count selected monitoring points
-    const selectedPoints = monitoringPoints.filter(p => p.selected).length;
+    // // Count selected monitoring points
+    // const selectedPoints = monitoringPoints.filter(p => p.selected).length;
     
-    // Count valid custom subjects
-    const validCustomSubjects = customSubjects.filter(s => s.content.trim() !== '').length;
+    // // Count valid custom subjects
+    // const validCustomSubjects = customSubjects.filter(s => s.content.trim() !== '').length;
 
-    // Enterprise plan if user has more than 10 competitors
-    if (validCompetitors > 10) {
-      return 'enterprise';
-    }
+    // // Enterprise plan if user has more than 10 competitors
+    // if (validCompetitors > 10) {
+    //   return 'enterprise';
+    // }
     
-    // Professional plan if user has more competitors or many monitoring points
-    if (validCompetitors > 1 || (selectedPoints + validCustomSubjects > 5)) {
-      return 'professional';
-    }
+    // // Professional plan if user has more competitors or many monitoring points
+    // if (validCompetitors > 1 || (selectedPoints + validCustomSubjects > 5)) {
+    //   return 'professional';
+    // }
     
-    // Default to starter plan
-    return 'starter';
+    // // Default to starter plan
+    // return 'starter';
+    return 'professional'; // Always recommend professional plan
   };
 
   const recommendedPlan = determineRecommendedPlan();
-  const isProfessional = recommendedPlan === 'professional';
-  const isEnterprise = recommendedPlan === 'enterprise';
+  const isProfessional = recommendedPlan === 'professional'; // This will always be true
+  const isEnterprise = false; // This will always be false
 
   // Generate a random customer ID
   const generateRandomCustomerId = () => {
@@ -55,23 +56,20 @@ const StepFour: React.FC = () => {
     try {
       setIsProcessing(true);
       
-      // If enterprise plan, redirect to email instead of the contact form
-      if (isEnterprise) {
-        // Create a record for step 4 (enterprise interest) asynchronously without blocking transition
-        createStepRecord(4).catch(error => {
-          console.error('Error creating step record:', error);
-        });
-        
-        // Redirect to email client
-        window.location.href = "mailto:rayan.9896@gmail.com?subject=Spyer.app%20Enterprise%20Solution%20Inquiry&body=Hello,%0A%0AI'm%20interested%20in%20learning%20more%20about%20Spyer.app%20enterprise%20solutions%20for%20my%20company%20" + encodeURIComponent(onboardingData.companyName) + ".%0A%0APlease%20contact%20me%20at%20" + encodeURIComponent(onboardingData.email) + "%20to%20discuss%20our%20specific%20requirements.%0A%0AThank%20you.";
-        return;
-      }
+      // // If enterprise plan, redirect to email instead of the contact form
+      // if (isEnterprise) { // This block will not be reached
+      //   createStepRecord(4).catch(error => {
+      //     console.error('Error creating step record:', error);
+      //   });
+      //   window.location.href = "mailto:rayan.9896@gmail.com?subject=Spyer.app%20Enterprise%20Solution%20Inquiry&body=Hello,%0A%0AI'm%20interested%20in%20learning%20more%20about%20Spyer.app%20enterprise%20solutions%20for%20my%20company%20" + encodeURIComponent(onboardingData.companyName) + ".%0A%0APlease%20contact%20me%20at%20" + encodeURIComponent(onboardingData.email) + "%20to%20discuss%20our%20specific%20requirements.%0A%0AThank%20you.";
+      //   return;
+      // }
       
       const apiKey = "am_pk_live_2x3ldIqsIwha1huw8KIAGuPDlgP";
       const customerId = generateRandomCustomerId();
 
       // Use the correct product_id based on the recommended plan
-      const productId = isProfessional ? "professional" : "starter";
+      const productId = "professional"; // Hardcoded to professional
 
       const apiResponse = await fetch('https://api.useautumn.com/v1/attach', {
         method: 'POST',
@@ -202,78 +200,59 @@ const StepFour: React.FC = () => {
           className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden"
         >
           <div className="px-5 py-3 border-b border-gray-100 bg-gray-50/80 flex justify-between items-center">
-            <h2 className="text-sm font-medium text-gray-800">Recommended Plan:</h2>
-            {isProfessional && !isEnterprise && (
+            <h2 className="text-sm font-medium text-gray-800">Your Plan:</h2>
+            {/* {isProfessional && !isEnterprise && ( // No longer needed, professional is the only plan
               <div className="bg-brand-lightBlue text-brand-blue text-xs font-medium px-2 py-0.5 rounded-full">
-                Most Popular
+                Most Popular 
               </div>
-            )}
-            {isEnterprise && (
+            )} */}
+            {/* {isEnterprise && ( // Enterprise plan removed
               <div className="bg-indigo-100 text-indigo-700 text-xs font-medium px-2 py-0.5 rounded-full">
                 Custom Solution
               </div>
-            )}
+            )} */}
           </div>
           
           <div className="p-5 space-y-4">
             <div>
               <div className="flex justify-between items-center">
                 <h3 className="text-lg font-semibold text-gray-800">
-                  {isEnterprise ? "Enterprise Plan" : isProfessional ? "Professional Plan" : "Starter Plan"}
+                  {/* {isEnterprise ? "Enterprise Plan" : isProfessional ? "Professional Plan" : "Starter Plan"} */}
+                  Professional Plan
                 </h3>
                 <span className="text-lg font-semibold text-gray-900">
-                  {isEnterprise ? "Custom" : isProfessional ? "$99" : "$39"}
-                  {!isEnterprise && <span className="text-sm font-normal text-gray-600">/month</span>}
+                  {/* {isEnterprise ? "Custom" : isProfessional ? "$99" : "$99"} */}
+                  $99
+                  {/* {!isEnterprise && <span className="text-sm font-normal text-gray-600">/month</span>} */}
+                  <span className="text-sm font-normal text-gray-600">/month</span>
                 </span>
               </div>
               <p className="text-sm text-gray-600 mt-1">
-                {isEnterprise 
+                {/* {isEnterprise 
                   ? "For organizations with advanced needs" 
                   : isProfessional 
                     ? "Ideal for monitoring multiple competitors in detail" 
-                    : "Monitor a single company in detail"}
+                    : "Monitor a single company in detail"} */}
+                Ideal for monitoring multiple competitors in detail
               </p>
             </div>
             
             <div>
               <h4 className="text-xs uppercase tracking-wider text-gray-500 mb-3">Includes:</h4>
               <ul className="space-y-3">
-                {/* Enterprise Plan Features */}
-                {isEnterprise && (
+                {/* Enterprise Plan Features - Removed */}
+                {/* {isEnterprise && (
                   <>
                     <motion.li variants={itemVariants} className="flex items-start">
                       <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
                       <span className="text-sm text-gray-700">Unlimited competitors</span>
                     </motion.li>
-                    <motion.li variants={itemVariants} className="flex items-start">
-                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-gray-700">All monitoring points</span>
-                    </motion.li>
-                    <motion.li variants={itemVariants} className="flex items-start">
-                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-gray-700">Custom reporting frequency</span>
-                    </motion.li>
-                    <motion.li variants={itemVariants} className="flex items-start">
-                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-gray-700">Team access</span>
-                    </motion.li>
-                    <motion.li variants={itemVariants} className="flex items-start">
-                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-gray-700">Dedicated account manager</span>
-                    </motion.li>
-                    <motion.li variants={itemVariants} className="flex items-start">
-                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-gray-700">Custom integrations</span>
-                    </motion.li>
-                    <motion.li variants={itemVariants} className="flex items-start">
-                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-gray-700">Private data sources</span>
-                    </motion.li>
+                    // ... other enterprise features
                   </>
-                )}
+                )} */}
 
-                {/* Professional Plan Features */}
-                {isProfessional && !isEnterprise && (
+                {/* Professional Plan Features - Always shown now */}
+                {/* {isProfessional && !isEnterprise && ( */}
                   <>
                     <motion.li variants={itemVariants} className="flex items-start">
                       <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
@@ -304,71 +283,51 @@ const StepFour: React.FC = () => {
                       <span className="text-sm text-gray-700">Quarterly insights report</span>
                     </motion.li>
                   </>
-                )}
+                {/* )} */}
 
-                {/* Starter Plan Features */}
-                {!isProfessional && !isEnterprise && (
+                {/* Starter Plan Features - Removed */}
+                {/* {!isProfessional && !isEnterprise && (
                   <>
                     <motion.li variants={itemVariants} className="flex items-start">
                       <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
                       <span className="text-sm text-gray-700">Monitoring of 1 competitor</span>
                     </motion.li>
-                    <motion.li variants={itemVariants} className="flex items-start">
-                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-gray-700">7 monitoring points</span>
-                    </motion.li>
-                    <motion.li variants={itemVariants} className="flex items-start">
-                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-gray-700">Weekly email reports</span>
-                    </motion.li>
-                    <motion.li variants={itemVariants} className="flex items-start">
-                      <CheckCircle className="h-4 w-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-gray-700">Basic dashboard</span>
-                    </motion.li>
+                    // ... other starter features
                   </>
-                )}
+                )} */}
               </ul>
             </div>
             
-            {!isEnterprise && (
-              <motion.div 
-                variants={itemVariants}
-                className="mt-4 pt-3 border-t border-gray-100"
-              >
-                <div className="inline-block px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full">
-                  24hr Quick-Start Bonus
-                </div>
-                <p className="mt-2 text-sm text-gray-700">
-                  Subscribe now to receive your preliminary competitor insights report within the next 24 hours.
-                </p>
-              </motion.div>
-            )}
+            {/* {!isEnterprise && ( // This section is for non-enterprise, so it will always show */}
+            <motion.div 
+              variants={itemVariants}
+              className="mt-4 pt-3 border-t border-gray-100"
+            >
+              <div className="inline-block px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full">
+                24hr Quick-Start Bonus
+              </div>
+              <p className="mt-2 text-sm text-gray-700">
+                Subscribe now to receive your preliminary competitor insights report within the next 24 hours.
+              </p>
+            </motion.div>
+            {/* )} */}
             
-            {isEnterprise && (
-              <motion.div 
-                variants={itemVariants}
-                className="mt-4 pt-3 border-t border-gray-100"
-              >
-                <div className="inline-block px-2 py-1 bg-indigo-100 text-indigo-700 text-xs font-medium rounded-full">
-                  Enterprise Advantage
-                </div>
-                <p className="mt-2 text-sm text-gray-700">
-                  Connect with our team to create a custom intelligence solution tailored to your organization's specific needs.
-                </p>
-              </motion.div>
-            )}
+            {/* {isEnterprise && ( // Enterprise section removed
+              // ...
+            )} */}
             
-            {!isEnterprise && (
-              <motion.div
-                variants={itemVariants} 
-                className="mt-4 pt-3 border-t border-gray-100 flex justify-between items-center"
-              >
-                <span className="font-medium text-gray-800">Total</span>
-                <span className="text-xl font-semibold text-gray-900">
-                  {isProfessional ? "$99" : "$39"}<span className="text-sm font-normal text-gray-600">/month</span>
-                </span>
-              </motion.div>
-            )}
+            {/* {!isEnterprise && ( // This section for total will always show */}
+            <motion.div
+              variants={itemVariants} 
+              className="mt-4 pt-3 border-t border-gray-100 flex justify-between items-center"
+            >
+              <span className="font-medium text-gray-800">Total</span>
+              <span className="text-xl font-semibold text-gray-900">
+                {/* {isProfessional ? "$99" : "$99"} */}
+                $99<span className="text-sm font-normal text-gray-600">/month</span>
+              </span>
+            </motion.div>
+            {/* )} */}
           </div>
         </motion.div>
 
@@ -376,11 +335,11 @@ const StepFour: React.FC = () => {
           variants={itemVariants}
           className="bg-gray-50 rounded-xl p-4 border border-gray-200 text-xs text-gray-600"
         >
-          {isEnterprise ? (
+          {/* {isEnterprise ? ( // Enterprise messaging removed
             <p>
               Our enterprise solutions are customized based on your specific needs. A dedicated account manager will work with you to develop a tailored package.
             </p>
-          ) : (
+          ) : ( */}
             <>
               <p>
                 Payment is processed securely via Stripe. Your subscription can be managed or canceled anytime by contacting support.
@@ -389,7 +348,7 @@ const StepFour: React.FC = () => {
                 Your first full report will be delivered on {getNextMonday()}.
               </p>
             </>
-          )}
+          {/* )} */}
         </motion.div>
       </motion.div>
 
@@ -415,7 +374,7 @@ const StepFour: React.FC = () => {
             onClick={handlePayment}
             disabled={isProcessing}
             className={`group px-4 py-2.5 ${
-              isEnterprise ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-brand-blue hover:bg-brand-darkBlue'
+              /* isEnterprise ? 'bg-indigo-600 hover:bg-indigo-700' : */ 'bg-brand-blue hover:bg-brand-darkBlue' // Always use brand-blue
             } text-white rounded-full text-sm shadow-sm transition-all duration-200`}
           >
             {isProcessing ? (
@@ -428,17 +387,18 @@ const StepFour: React.FC = () => {
               </span>
             ) : (
               <>
-                {isEnterprise ? (
+                {/* {isEnterprise ? ( // Enterprise button removed
                   <>
                     <Mail className="mr-2 h-4 w-4" />
                     <span>Contact Sales</span>
                   </>
-                ) : (
+                ) : ( */}
                   <>
                     <CreditCard className="mr-2 h-4 w-4" />
-                    <span>Subscribe - {isProfessional ? "$99/month" : "$39/month"}</span>
+                    {/* <span>Subscribe - {isProfessional ? "$99/month" : "$99/month"}</span> */}
+                    <span>Subscribe - $99/month</span>
                   </>
-                )}
+                {/* )} */}
               </>
             )}
           </Button>

@@ -35,7 +35,7 @@ const comparisonData = {
         "Includes All Data Sources": { value: true },
         "Provides Qualitative Insights": { value: true },
         "Offers Real-Time Notifications": { value: true },
-        "Pricing": { value: true, label: "$49/mo" },
+        "Pricing": { value: true, label: "$99/mo" },
       },
       highlighted: false,
     },

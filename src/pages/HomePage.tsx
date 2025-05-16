@@ -16,8 +16,6 @@ const HomePage = () => {
     <div className="min-h-screen font-['Inter']">
       <Header />
       <main>
-        <HeroSection />
-        <TestComponent />
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -30,6 +28,8 @@ const HomePage = () => {
             alternateLayout={true}
           />
         </motion.div>
+        <HeroSection />
+        <TestComponent />
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

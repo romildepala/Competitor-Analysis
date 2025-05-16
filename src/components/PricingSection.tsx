@@ -4,18 +4,6 @@ import { Link } from "react-router-dom";
 
 const plans = [
   {
-    name: "Starter",
-    price: "$39",
-    description: "Monitor a single company in detail",
-    features: [
-      "1 company",
-      "7 monitoring points",
-      "Weekly email reports",
-      "Basic dashboard",
-      "Email alerts"
-    ]
-  },
-  {
     name: "Professional",
     price: "$99",
     description: "Ideal for monitoring multiple companies",
@@ -28,21 +16,6 @@ const plans = [
       "API access",
       "Quarterly insights report"
     ],
-    highlighted: true
-  },
-  {
-    name: "Enterprise",
-    price: "Custom",
-    description: "For organizations with advanced needs",
-    features: [
-      "Unlimited companies",
-      "All monitoring points",
-      "Custom reporting frequency",
-      "Team access",
-      "Dedicated account manager",
-      "Custom integrations",
-      "Private data sources"
-    ]
   }
 ];
 
@@ -59,21 +32,12 @@ const PricingSection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-1 gap-8 justify-items-center">
           {plans.map((plan, index) => (
             <div 
               key={index}
-              className={`rounded-xl p-8 border ${
-                plan.highlighted 
-                  ? 'border-brand-blue shadow-lg shadow-blue-100 dark:shadow-none dark:border-brand-blue/50' 
-                  : 'border-gray-200 dark:border-gray-700'
-              } dark:bg-gray-800/30`}
+              className={'rounded-xl p-8 border border-brand-blue shadow-lg shadow-blue-100 dark:shadow-none dark:border-brand-blue/50 dark:bg-gray-800/30 md:max-w-md'}
             >
-              {plan.highlighted && (
-                <div className="bg-brand-lightBlue text-brand-blue text-sm font-medium px-3 py-1 rounded-full w-fit mb-4 dark:bg-blue-900/60 dark:text-blue-300">
-                  Most Popular
-                </div>
-              )}
               <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
               <div className="flex items-end gap-1 mb-2">
                 <span className="text-4xl font-bold">{plan.price}</span>
@@ -91,10 +55,8 @@ const PricingSection = () => {
               </ul>
               
               <Button 
-                variant={plan.highlighted ? "default" : "outline"} 
-                className={`w-full rounded-full group transition-all ${
-                  plan.highlighted ? 'bg-brand-blue hover:bg-brand-darkBlue' : 'dark:border-white/20 dark:text-white dark:hover:bg-white/10'
-                }`}
+                variant={"default"}
+                className={'w-full rounded-full group transition-all bg-brand-blue hover:bg-brand-darkBlue'}
                 asChild
               >
                 {plan.price === "Custom" ? (

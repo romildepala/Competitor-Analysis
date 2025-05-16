@@ -8,6 +8,7 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import CompetitorComparisonTable from "@/components/CompetitorComparisonTable";
+import ReportSection from "@/components/ReportSection";
 
 const Index = () => {
   return (
@@ -15,6 +16,18 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <ReportSection 
+            title="Comprehensive Report Sections" 
+            subtitle="Our detailed reports provide actionable insights into your competitors' strategies, allowing you to make informed decisions."
+            alternateLayout={true}
+          />
+        </motion.div>
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
