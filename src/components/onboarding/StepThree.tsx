@@ -114,7 +114,7 @@ const StepThree: React.FC = () => {
               type="button" 
               onClick={addCustomSubject} 
               variant="outline" 
-              className="h-8 border border-gray-200 bg-white hover:bg-gray-50 transition-colors duration-200 rounded-full" 
+              className="h-8 border border-gray-200 bg-brand-blue hover:bg-brand-darkBlue text-white transition-colors duration-200 rounded-full" 
               size="icon"
             >
               <Plus className="h-3.5 w-3.5" />
@@ -137,7 +137,7 @@ const StepThree: React.FC = () => {
                     type="button" 
                     onClick={() => removeCustomSubject(subject.id)} 
                     variant="outline" 
-                    className="h-8 border border-gray-200 bg-white hover:bg-gray-50 text-gray-600 transition-colors duration-200 rounded-full" 
+                    className="h-8 border border-gray-200 bg-brand-blue hover:bg-brand-darkBlue text-white transition-colors duration-200 rounded-full" 
                     size="icon"
                   >
                     <Trash className="h-3.5 w-3.5" />

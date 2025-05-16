@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
@@ -8,6 +7,9 @@ import PricingSection from "@/components/PricingSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import ReportSection from "@/components/ReportSection";
+import TestComponent from "@/components/TestComponent";
+import CompetitorComparisonTable from "@/components/CompetitorComparisonTable";
 
 const HomePage = () => {
   return (
@@ -15,6 +17,27 @@ const HomePage = () => {
       <Header />
       <main>
         <HeroSection />
+        <TestComponent />
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <ReportSection 
+            title="Comprehensive Report Sections" 
+            subtitle="Our detailed reports provide actionable insights into your competitors' strategies, allowing you to make informed decisions."
+            alternateLayout={true}
+          />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <CompetitorComparisonTable />
+        </motion.div>
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

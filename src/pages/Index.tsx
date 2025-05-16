@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
@@ -8,6 +7,8 @@ import PricingSection from "@/components/PricingSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import ReportSectionsIndex from "@/components/ReportSectionsIndex";
+import CompetitorComparisonTable from "@/components/CompetitorComparisonTable";
 
 const Index = () => {
   return (
@@ -15,6 +16,22 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <ReportSectionsIndex />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <CompetitorComparisonTable />
+        </motion.div>
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
