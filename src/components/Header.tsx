@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -23,6 +24,7 @@ const Header = () => {
           <a href="#how-it-works" className="font-medium hover:text-brand-blue transition-colors">How it Works</a>
           <a href="#pricing" className="font-medium hover:text-brand-blue transition-colors">Pricing</a>
           <a href="#testimonials" className="font-medium hover:text-brand-blue transition-colors">Testimonials</a>
+          <Link to="/home" className="font-medium hover:text-brand-blue transition-colors">Home Duplicate</Link>
         </nav>
         <div className="flex items-center">
           <Button className="bg-brand-blue hover:bg-brand-darkBlue" asChild>
@@ -32,4 +34,5 @@ const Header = () => {
       </div>
     </header>;
 };
+
 export default Header;
