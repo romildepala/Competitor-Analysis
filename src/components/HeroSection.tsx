@@ -45,7 +45,7 @@ const HeroSection = () => {
               className="text-xl text-gray-600"
               variants={itemVariants}
             >
-              Track website changes, social media activity, employee updates, and more - all in one platform. Perfect for VCs, founders, and competitive intelligence.
+              Track competitors 24/7. Instantly detect website changes, social media activity, employee updates, and more. Stay ahead and save hours per week.
             </motion.p>
             <motion.div 
               className="flex flex-col sm:flex-row gap-4 pt-4 justify-center md:justify-start"
