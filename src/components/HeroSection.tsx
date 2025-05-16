@@ -39,7 +39,7 @@ const HeroSection = () => {
               className="text-4xl md:text-6xl font-bold leading-tight"
               variants={itemVariants}
             >
-              Monitor Every Aspect of <span className="gradient-text">Any Company</span>
+              The world's first <span className="gradient-text">AI spy</span>
             </motion.h1>
             <motion.p 
               className="text-xl text-gray-600"
