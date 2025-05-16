@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Eye } from "lucide-react";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -17,7 +18,12 @@ const Header = () => {
   }, [scrolled]);
   return <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? "bg-white shadow-md py-2" : "bg-transparent py-4"}`}>
       <div className="container flex justify-between items-center">
-        <div className="flex items-center">
+        <div className="flex items-center gap-2">
+          <img 
+            src="/lovable-uploads/fce5ec2f-a6af-4890-b209-b249cff5a0b3.png" 
+            alt="Spyer Logo" 
+            className="h-8 w-8"
+          />
           <div className="text-2xl font-bold text-brand-blue">Spyer</div>
         </div>
         <nav className="hidden md:flex space-x-8">
